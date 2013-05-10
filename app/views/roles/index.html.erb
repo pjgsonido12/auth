@@ -1,0 +1,48 @@
+<div id="left-side" class="matting">
+  <h3> Project Roles </h3>
+  <div class="field"> 
+    <h4> ADMINISTRATOR:</h4> 
+	<% for admin_role in @admin_roles %>
+	  <div style="margin-left:1.3cm;display: inline;">
+	  <%= admin_role.person.name %></div> <br>
+	<% end %>
+  </div>
+  <div class="field"> 
+    <h4> USER:</h4> 
+	<% for user_role in @user_roles %>
+	  <div style="margin-left:1.3cm;display: inline;">
+	  <%= user_role.person.name %></div> <br>
+	<% end %>
+  </div>
+  <div class="field"> 
+    <h4> SPECTATOR:</h4>
+	<% for spec_role in @spec_roles %>
+	  <div style="margin-left:1.3cm;display: inline;">
+	  <%= spec_role.person.name %></div> <br>
+	<% end %>
+  </div>
+</div>
+
+<div id="right-side">
+	<%= form_for @project_role, :url => project_roles_url do |f| %>
+	  <% if @project_role.errors.any? %>
+	    <div class="error_messages">
+		  <h2>Form is valid</h2>
+		  <ul>
+			  <% for message in @project_role.errors.full_messages %>
+			  <li><%= message%></li>
+			  <% end %>
+		  </ul>
+		</div>
+	  <% end %>
+
+  <h5> Select role: </h5>
+  <%= f.select :role_id, options_for_select(@roles.collect{ |u| [u.name, u.id] }), {}, :style => "width:130px" %><br> <br>
+  <h5> Person with access: </h5>
+  <%= f.select :person_id, options_for_select(@people.collect{ |p| [p.name, p.id] }), {}, :style => "width:130px" %>
+  <%= f.hidden_field :project_id, :value => current_project.id %><br><br>
+  <div class="submit">
+      <%= submit_tag "Add role" %> 
+  </div>
+  <% end %>
+</div>

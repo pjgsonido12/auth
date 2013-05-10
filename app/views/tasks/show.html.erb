@@ -1,0 +1,124 @@
+<script>
+$j(document).ready(function() {
+  $j('#task_task_status_id').change(function(){
+	var txt = $j("#task_task_status_id :selected").text();
+	if(txt == 'Accepted' || txt == 'Resolved' | txt == 'Done' ){
+	  $j('#task_assigned_to').attr('disabled', 'disabled');
+	  }	
+    else{
+      $j('#task_assigned_to').removeAttr('disabled');	
+	}
+  });
+});
+</script>
+
+<div id="left-side" class="matting">
+  <h3>#<%= @task.task_number %> - <%= @task.title %></h3> 
+  <ul class="campaigns">
+	      <li class="campaign">
+		  Status: 
+		  <div style="margin-left:1.8cm;display: inline;"><%= @task.task_status.name %></div><br>
+		  Created by:
+		  <div style="margin-left:1cm;display: inline;"><%= @task.created_person.name %></div><br>
+          Created at: 
+          <div style="margin-left:1.1cm;display: inline;"><%= @task.created_at.strftime("%d %B %Y") %></div><br> 	
+          Assigned to: 
+          <div style="margin-left:.9cm;display: inline;"><%= @task.assigned_person.name %></div><br>
+          Due Date: 
+		  <div style="margin-left:1.25cm;display: inline;"><%= @task.due_date.strftime("%d %B %Y") %></div><br>
+          <% if @task.task_status.name == 'Done'%>
+          Date Completed: 
+          <div style="margin-left:.12cm;display: inline;"><%= @task.date_completed.strftime("%d %B %Y") %></div><br>
+          <% end %> </br>
+          </li>
+          <li class="campaign">
+	      <br>
+	      Description:<br></br> <%= @task.description %> <br><br>
+		  </li>
+	
+		  <% for comment in @comments %>
+		  <li class="campaign">
+          <p>
+		    <div id="forcomment"><b><%= comment.created_person.email %></b>   
+		    <%= comment.created_at.strftime("%a, %d %B %Y at %I:%M%p") %> <br>
+		    <%= raw(comment.comment) %></div>
+	  	  </p>	
+	      </li>
+		  <% end %>
+		
+		  <%= form_for(@comment, :url => project_task_comments_url(:task_id => @task.id),:html => {:id => 'comment', :multipart => true}) do |f| %>
+		<br >		
+		  <%= f.label(:comment, "Leave a comment...") %><br />
+		  <%= f.cktext_area(:comment, :size => "44x6",:value => "Comment here", :id => "sometext", :ckeditor => {:toolbar => 'Basic'} ) %><br /> 
+		  <%= f.hidden_field :created_by, :value => current_user.id %>
+		  <%= f.hidden_field :is_active, :value => true %>
+		  <%= f.submit("Post") %>
+		  <% end %>
+  </ul>
+</div>
+
+<div id="right-side">
+<% if current_role == 'Administrator' || admin_role || ( @task.assigned_to == current_user.id && @task.task_status.name != 'Resolved' )  %>
+    <%= button_to "Edit Task", edit_project_task_url(:project_id => current_project.id, :id => @task.id), :method => :get %>
+
+  <h5> Assigned Task to: </h5>
+<%= form_for @task, :url => project_task_url(:id => @task.id),:html => {:method => :put,:class => "person"} do |f| %>
+  <% if @task.errors.any? %>
+    <div class="error_messages">
+	  <h2>Form is valid</h2>
+	  <ul>
+		  <% for message in @task.errors.full_messages %>
+		  <li><%= message%></li>
+		  <% end %>
+	  </ul>
+	</div>
+  <% end %>
+
+  <div class='field'>
+	<%= f.hidden_field :project_id, :value => current_project.id %>
+	<%= f.hidden_field :updated_by, :value => current_user.id %>
+  </div>
+  <p>
+	  <% if @task.task_status.name == 'New' %> 
+	    <%= f.hidden_field :task_status_id, :value => 2 %>
+	   <% else %>
+	    <%= f.label :task_status_id, {}, :style => "margin-right: 10px" %>  
+	    <%= f.select :task_status_id, @task_statuses.map {|t| [t.name,t.id] }, {}, :style => "width:130px", :onclick => "handleSelect()" %>
+	   <% end %>
+  </p>
+  <p>
+
+      <% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Accepted' %>
+	    <%= f.label :assigned_to, {}, :style => "margin-right: 10px" %>    
+	    <%= f.select :assigned_to, @permissions.map {|u| [u.person.name,u.person.id] }, {}, :style => "width:130px" %>
+	    <%= f.hidden_field :date_completed, :value => Time.now %>        
+      <% else %>
+	    <%= f.label :assigned_to, {}, :style => "margin-right: 10px" %>    
+	    <%= f.select :assigned_to, @permissions.map {|u| [u.person.name,u.person.id] }, {}, :style => "width:130px" %>
+      <% end %>
+  </p>
+
+  <div class="submit">
+      <%= submit_tag "Assign task" %>
+  </div>
+  <br>
+  <h5> Person to notify: </h5>
+    <div style="font-size:12px;">
+	  <% check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'people')" }) %>
+    <% @permissions.each do |permission| %>
+    <% if permission.person_id == current_user.id || permission.person_id == 30  %>
+      <%= check_box_tag("people[]",permission.person.id,true,{ :class => "people", :onclick => "toggleMaster(this,'select_all')" }) %>
+    <% else %>
+      <%= check_box_tag("people[]",permission.person.id,false,{ :class => "people", :onclick => "toggleMaster(this,'select_all')" }) %>
+    <% end %>
+	&nbsp;<span><%= permission.person.name %>
+   <br>
+    <% end %>
+    </div>
+
+<% end %>
+<% end %>
+</div>
+
+
+

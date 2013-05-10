@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  project_id: 1
+  created_by: 1
+  updated_by: 1
+  assigned_to: 1
+  status: 1
+  due_date: 
+  is_active: false
+
+two:
+  title: MyString
+  description: MyString
+  project_id: 1
+  created_by: 1
+  updated_by: 1
+  assigned_to: 1
+  status: 1
+  due_date: 
+  is_active: false

@@ -1,0 +1,18 @@
+<div id="left-side" class="matting">
+
+<h3>People</h3> 
+  <ul class="campaigns">
+    <% for person in @people %>
+      <li class="campaign">
+	      <%= link_to person.name, person_url(person.id) %>
+	      <small><div id="smallcheck"><%= person.email %> </small></div>
+	  </li>
+    <% end %>
+  </ul>
+</div>
+
+
+<div id="right-side">
+  <%= button_to "Add Person", new_person_url,:method => :get %>
+</div>
+

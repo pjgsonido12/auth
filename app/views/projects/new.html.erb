@@ -1,0 +1,32 @@
+<div id="left-side" class="matting">
+<h3>New Project</h3>
+
+<%= form_for @project, :html => {:class => "person"} do |f| %>
+  <% if @project.errors.any? %>
+    <div class="error_messages">
+	  <h2>Form is valid</h2>
+	  <ul>
+		  <% for message in @project.errors.full_messages %>
+		  <li><%= message%></li>
+		  <% end %>
+	  </ul>
+	</div>
+  <% end %>
+  
+  <div class="field">
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+  </div>
+  <div class="field">
+	<%= f.label :description %>
+	<%= f.text_area :description %>
+  </div>
+  <div class="field">
+	<%= f.hidden_field :createdby, :value => current_user.id %>
+  </div>
+  <div class="field">
+	<%= f.hidden_field :is_active, :value => true %>
+  </div>
+  <div class="submit"><%= f.submit%></div>
+<% end %>
+</div>

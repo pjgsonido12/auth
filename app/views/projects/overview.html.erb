@@ -1,0 +1,14 @@
+<div id="left-side" class="matting">
+  <h3>Project Overview</h3>
+    <ul class="campaigns">
+    <%= current_project.name %> <br >
+    <%= current_project.description %>
+    </ul>
+</div>
+
+<div id="right-side">
+  <% if current_role == 'Administrator' || admin_role %>
+    <%= button_to "Edit Project", edit_project_url,:method => :get %>
+  <% end %>
+</div>
+

@@ -1,0 +1,16 @@
+<div id="left-side" class="matting">
+  <h3> Projects </h3> 
+
+  <ul class="campaigns">
+    <% for project in @projects %>
+    <li class="campaign">
+      <%= link_to project.name, overview_project_url(project) %> 
+     </li>
+    <% end %>
+  </ul>
+
+</div>
+
+<div id="right-side" class="add-project">
+  <%= button_to "Add Project", new_project_url,:method => :get %>
+</div>

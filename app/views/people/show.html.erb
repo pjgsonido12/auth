@@ -1,0 +1,11 @@
+<div id="left-side" class="matting">
+  <h3><%= @person.firstname %> Information</h3> 
+  <ul class="campaigns">
+	      <b>Name:   </b><%= @person.name %> </br>
+	      <b>E-mail: </b><%= @person.email %>
+  </ul>
+</div>	
+
+<div id="right-side">
+  <%= button_to "Edit Person", edit_person_url,:method => :get %>
+</div>

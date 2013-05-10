@@ -1,0 +1,43 @@
+<div id="left-side" class="matting">
+<h3> Edit Task </h3> 
+
+<%= form_for @task, :url => project_task_url(:id => @task.id),:html => {:method => :put,:class => "person"} do |f| %>
+  <% if @task.errors.any? %>
+    <div class="error_messages">
+	  <h2>Form is valid</h2>
+	  <ul>
+		  <% for message in @task.errors.full_messages %>
+		  <li><%= message%></li>
+		  <% end %>
+	  </ul>
+	</div>
+  <% end %>
+  
+  <div class='field'>
+	<%= f.label :title %>
+	<%= f.text_field :title %>
+  </div>
+  <div class='field'>
+	<%= f.label :description %>
+	<%= f.text_area :description %>
+  </div>
+  <div class='field'>
+	<%= f.hidden_field :project_id, :value => current_project.id %>
+	<%= f.hidden_field :updated_by, :value => current_user.id %>
+  </div>
+
+  <div class='field'>
+	<%= f.label :due_date %>
+	<%= f.date_select :due_date, :ampm => true, :start_year => 2011, :order => [:month, :day, :year] %>
+  </div>
+  <div class="submit">
+      <%= submit_tag "Update task" %><small>or <%= link_to 'cancel', project_task_url(:project_id => current_project.id, :id => @task.id), :class => "red" %></small>
+  </div>
+<% end %>
+</div>
+
+<div id="right-side">
+  <div class='field'> Deleting this task will make status in active. 
+  </div>
+  <%= button_to("Delete Task", cancel_project_task_url(:project_id => current_project.id, :id => @task.id), {:onclick => "return confirm('Are you sure you want to delete this task?')", :method => :put }) %>
+</div>

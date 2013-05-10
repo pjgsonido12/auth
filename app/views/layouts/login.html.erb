@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Reach</title>
+  <%= stylesheet_link_tag stylesheet(@CSS) %>
+</head>
+<body>
+    <div id="login">
+        <h2>Login</h2>
+        <p style="color:darkred"><%= flash[:notice] %></p>
+        <%= yield  %>    
+
+	</div>
+</body>
+</html>

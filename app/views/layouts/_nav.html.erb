@@ -1,0 +1,9 @@
+<div id='links'>
+   <%= link_to 'Log out', log_out_url,:class => "right" %>	
+   <%= link_to 'My Info' + " | " ,person_url(current_user),:class => "right" %>
+   
+   <div class='right'>	
+   <%= current_user.firstname %>
+   <%= current_user.lastname %>  | 
+   </div>
+</div>

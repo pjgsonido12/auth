@@ -1,0 +1,11 @@
+<h1>Ticketing System</h1> 
+
+  <div id='links'>
+    <%= link_to 'Overview' + " | ", overview_project_url(current_project), :class => "left" %>
+  <% if current_role == 'Administrator' || admin_role %>
+    <%= link_to 'Permissions' + " | ", project_permissions_url(current_project), :class => "left" %>
+  <% end %>
+    <%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %>
+  </div>
+
+

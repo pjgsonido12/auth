@@ -1,0 +1,67 @@
+<div id="left-side" class="matting">
+<h3>Edit Person Information</h3>
+
+<%= form_for @person,:url => person_url(@person),:html => {:method => :put,:class => "person"} do |f| %>
+  <% if @person.errors.any? %>
+    <div class="error_messages">
+	  <h2>Form is valid</h2>
+	  <ul>
+		  <% for message in @person.errors.full_messages %>
+		  <li><%= message%></li>
+		  <% end %>
+	  </ul>
+	</div>
+  <% end %>
+  
+  <div class="field">
+	<%= f.label :firstname %>
+	<%= f.text_field :firstname %>
+  </div>
+  <div class='field'>
+	<%= f.label :lastname %>
+	<%= f.text_field :lastname %>
+  </div>
+  <div class='field'>
+	<%= f.label :email %>
+	<%= f.text_field :email %>
+  </div>
+  <div class='field'>
+	<%= f.label :password %>
+	<%= f.password_field :password, :value => @person.password, :style => "width:275px" %>
+  </div>
+  <div class='field'>
+	<%= f.label :password_confirmation %>
+	<%= f.password_field :password_confirmation, :value => @person.password %>
+  </div>
+    <% if admin_role %>
+	<%= f.check_box :is_system_admin %>
+	<b><%= f.label :is_system_admin %></b>
+	<% end %>
+  <br/>
+  <div class="submit">
+      <%= submit_tag "Update person" %> <small>or <%= link_to 'cancel', person_url(@person), :class => "red" %></small>
+  </div>
+<% end %>
+</div>
+
+<div id="right-side">
+<% if admin_role %>
+ <h5>Projects <%= @person.name %> can access...</h5>
+    <%= form_for(@person,:url => person_url(@person),:html => {:method => :put,:id => "campaign_access",:class => "contact"}) do |f| %>
+        <% Project.is_active.each do |project| %>
+            <%= label_tag accessible_project_id(project),:class => "check" do %>
+                <%= check_box_tag 'person[accessible_project_ids][]', project.id, @person.accessible_project_ids.include?(project.id), :id => accessible_project_id(project) %>
+                <%= project.name %>
+                <br>
+            <% end %>
+        <% end %>
+        <div class="submit">
+            <%= submit_tag "Update project access" %> 
+        </div>
+    <% end %>
+  
+  <br>	<br>
+  <div class='field'> Deleting this person will make status in active. </div>
+  <%= button_to("Delete Person", cancel_person_url(@person), {:onclick => "return confirm('Are you sure you want to delete this person?')", :method => :put }) %>
+<% end %>
+</div>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ticketing System</title>
+  <%= stylesheet_link_tag    "application", "people", :media => "all" %>
+  <%= javascript_include_tag "application","jquery-1.4.2.min", "rails" %>
+  <%= javascript_include_tag 'jquery-1.4.2.min','jquery','jquery-ui','jquery_ujs'%>
+  <script> var $j = jQuery.noConflict(); </script>	
+
+  <%= yield(:javascripts) %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div id="flash">
+  <%= render :partial => 'layouts/flash', :object => flash %>
+  </div>
+
+<% if session[:user_id] %>
+	<div id="page-head">
+	<% if current_page?(:controller => 'projects', :action => 'dashboard') %>
+	
+	<% else %>
+	  <%= render :partial => "layouts/dashboard" %>      
+    <% end %>
+        <%= render :partial => "layouts/nav" %>
+      <% if session[:project_id] %>
+        <%= render :partial => "layouts/project_links" %>   
+      <% else %>
+        <%= render :partial => "layouts/mainlinks" %>
+      <% end %>
+    </div>
+<% end %>
+<br/>
+<%= yield %>
+
+</body>
+</html>

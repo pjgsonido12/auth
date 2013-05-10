@@ -1,0 +1,170 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ *= require jquery.ui.datepicker 
+*/
+
+#container
+{
+	margin: 0 30px;
+	background: #fff;
+	font-family:"Georgia";
+    font-size:15px;
+}
+
+#header
+{
+	background: #ccc;
+	padding: 20px;
+	background-color: #669966;
+	border-style:solid;
+	border-color:#98bf21;
+}
+
+#header h1 { margin: 0; }
+
+#navigation
+{
+	float: left;
+	width: 100%;
+	background: #333;
+}
+
+#navigation ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+#navigation ul li
+{
+	list-style-type: none;
+	display: inline;
+}
+
+#navigation li a
+{
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+
+#navigation li a:hover { background: #383; }
+
+#content
+{
+	clear: left;
+	padding: 20px;
+}
+
+#content h2
+{
+	color: #000;
+	font-size: 160%;
+	margin: 0 0 .5em;
+}
+
+footer
+{
+	background: #ccc;
+	text-align: right;
+	padding: 20px;
+	height: 1%;
+}
+
+nav {
+ float:right;
+ overflow:visible;
+ margin-right: 40px;
+ margin-top: 25px;
+ font-family:"Georgia";
+ font-size:15px;
+}
+
+.container{
+	margin-left: 20px;
+}
+
+.left_span {
+	width: 800px;
+	background-color: #ffffff;
+	padding: 10px;
+	margin-top: 10px;
+}
+	
+
+
+/*________Comment_______*/
+
+
+#post_comment
+{
+  
+  padding-left : 5px; 
+  background-color: #4B7399;
+  margin: 20px 0 20px 0;
+  color: #000000;
+}
+
+#nav-wrap {
+position: relative;
+margin-top: 20px;
+left: 100%;
+}
+
+
+body {
+        background-color:#f0f0ee;
+ font:1em "Trebuchet MS";
+        }
+
+
+		.bubble img {
+		    float:left;
+		    width:70px;
+		    height:70px;
+		    border:3px solid #4B7399;
+		    border-radius:10px
+		                  }
+		.bubble-content {
+		   position:relative;
+		   float:left;
+		   margin-left:12px;
+		   width:400px;
+		   padding:0px 20px;
+		   border-radius:10px;
+		   background-color:#4B7399;
+		   box-shadow:1px 1px 5px rgba(0,0,0,.2);
+		   }
+		.bubble {
+		     margin-top:20px;
+		     }
+		.point {
+		   border-top:10px solid transparent;
+		   border-bottom:10px solid transparent;
+		          border-right: 12px solid #FFF;
+		   position:absolute;
+		   left:-10px;
+		   top:12px;
+		   }
+		
+#smallcheck {
+	padding:1px 20px;
+}
+
+#forcomment {
+	text-align:left;
+}
+

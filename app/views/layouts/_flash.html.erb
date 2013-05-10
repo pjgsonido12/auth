@@ -1,0 +1,17 @@
+ <% [:alert, :notice, :error].select { |type| !flash[type].blank? }.each do |type| %>
+<p>
+  <% if flash[:notice] %>
+    <div class="alert-message error">
+      <%= flash[type] %>
+    </div>
+<% elsif flash[:error] %>
+    <div class="alert-message error">
+      <% flash[:error].each_with_index do |error, index| %>
+          <%= index+1 %>. <%= error %> 
+      <% end %>
+    </div>
+  <% end %>
+
+
+   </p>
+  <% end %>
