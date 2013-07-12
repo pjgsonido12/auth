@@ -1,5 +1,6 @@
-// This is actually the default value.
-config.toolbar_Full =
-[
-    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-];
+body
+{
+   padding: 0px;
+   margin: 0;
+   background-color: #ffffff;
+}
