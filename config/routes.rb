@@ -11,9 +11,10 @@ Auth::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   match 'dashboard' => 'projects#dashboard', :as => 'dashboard'
   match '/permissions/update_role' => 'permissions#update_role', :as => 'update_role', :via => [:put]
+  match "/", :to => "application#index", :as => :application
   
   root :to => "sessions#new"
-  
+    
   resources :people do
     member do
       put :cancel
@@ -30,7 +31,9 @@ Auth::Application.routes.draw do
     resources :tasks do
       member do
         put :cancel
+        put :update_task
         put :change
+        put :remove
       end
       
       collection do
