@@ -9,6 +9,16 @@ $j(document).ready(function() {
       $j('#task_assigned_to').removeAttr('disabled');	
 	}
   });
+
+  $j('#ddlViewBy').change(function(){
+	var e = document.getElementById("ddlViewBy");
+	var strUser = $j(this).val();
+    $j('#person-' + strUser).prop("checked", true).checkboxradio("refresh");
+  });
+
+
+
+  CKEDITOR.replace('_Text', { toolbar : [ ['Bold','Italic','Underline','Strike','Link','Image','Styles','Font','FontSize','TextColor','BGColor'] ] });
 });
 </script>
 
@@ -32,16 +42,22 @@ $j(document).ready(function() {
           <% end %> </br>
           </li>
           <li class="campaign">
-	      <br>
-	      Description:<br></br> <%= @task.description %> <br><br>
+	      <br><div style="text-align:justify;">
+	      Description:<br></br> <%= h(@task.description).gsub(/\n/, '<br />').html_safe %></div> <br><br>
 		  </li>
 	
-		  <% for comment in @comments %>
+		  <% for comment in @comments.is_active %>
 		  <li class="campaign">
           <p>
-		    <div id="forcomment"><b><%= comment.created_person.email %></b>   
-		    <%= comment.created_at.strftime("%a, %d %B %Y at %I:%M%p") %> <br>
-		    <%= raw(comment.comment) %></div>
+	        <div style="text-align:right;margin-top:-30px;margin-right:-30px;">
+		      <% if comment.created_by == current_user.id %>
+	             <%= button_to("x", remove_project_task_url(:id => comment.id, :task_id => comment.task_id), {:onclick => "return confirm('Are you sure you want to remove this comment?')", :method => :put }) %></div>	
+	          <% end %>
+		    <div id="forcomment">			
+			<%= raw(comment.comment) %></div>
+			<small><div id="smallcheck", style="text-align:right;">
+			<b><%= comment.created_person.email %></b>   
+		    <%= comment.created_at.strftime("%a, %d %B %Y at %I:%M%p") %></small></div>  
 	  	  </p>	
 	      </li>
 		  <% end %>
@@ -49,10 +65,12 @@ $j(document).ready(function() {
 		  <%= form_for(@comment, :url => project_task_comments_url(:task_id => @task.id),:html => {:id => 'comment', :multipart => true}) do |f| %>
 		<br >		
 		  <%= f.label(:comment, "Leave a comment...") %><br />
-		  <%= f.cktext_area(:comment, :size => "44x6",:value => "Comment here", :id => "sometext", :ckeditor => {:toolbar => 'Basic'} ) %><br /> 
+		  <%= f.text_area(:comment, :value => "Comment here", :id => "_Text" ) %><br /> 
 		  <%= f.hidden_field :created_by, :value => current_user.id %>
 		  <%= f.hidden_field :is_active, :value => true %>
+		<% if current_role != 'Spectator' %>
 		  <%= f.submit("Post") %>
+		<% end %>
 		  <% end %>
   </ul>
 </div>
@@ -87,14 +105,13 @@ $j(document).ready(function() {
 	   <% end %>
   </p>
   <p>
-
       <% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Accepted' %>
 	    <%= f.label :assigned_to, {}, :style => "margin-right: 10px" %>    
-	    <%= f.select :assigned_to, @permissions.map {|u| [u.person.name,u.person.id] }, {}, :style => "width:130px" %>
+	    <%= f.select :assigned_to, @permissions.map {|u| [u.person.name,u.person.id] }, {}, :style => "width:130px" ,:id => "ddlViewBy" %>
 	    <%= f.hidden_field :date_completed, :value => Time.now %>        
       <% else %>
 	    <%= f.label :assigned_to, {}, :style => "margin-right: 10px" %>    
-	    <%= f.select :assigned_to, @permissions.map {|u| [u.person.name,u.person.id] }, {}, :style => "width:130px" %>
+	    <%= f.select :assigned_to, @permissions.map {|u| [u.person.name,u.person.id] }, {}, :style => "width:130px" ,:id => "ddlViewBy" %>
       <% end %>
   </p>
 
@@ -106,16 +123,15 @@ $j(document).ready(function() {
     <div style="font-size:12px;">
 	  <% check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'people')" }) %>
     <% @permissions.each do |permission| %>
-    <% if permission.person_id == current_user.id || permission.person_id == 30  %>
-      <%= check_box_tag("people[]",permission.person.id,true,{ :class => "people", :onclick => "toggleMaster(this,'select_all')" }) %>
+    <% if permission.person_id == current_user.id || permission.person_id == 30 %>
+      <%= check_box_tag("people[]",permission.person.id,true,{ :class => "people", :id => "person-#{permission.person_id}", :onclick => "toggleMaster(this,'select_all')" }) %>
     <% else %>
-      <%= check_box_tag("people[]",permission.person.id,false,{ :class => "people", :onclick => "toggleMaster(this,'select_all')" }) %>
+      <%= check_box_tag("people[]",permission.person.id,false,{ :class => "people", :id => "person-#{permission.person_id}", :onclick => "toggleMaster(this,'select_all')" }) %>
     <% end %>
 	&nbsp;<span><%= permission.person.name %>
    <br>
     <% end %>
     </div>
-
 <% end %>
 <% end %>
 </div>
