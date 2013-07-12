@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  #include SslRequirement
+  #include RedirectBack
+  
   protect_from_forgery
   helper_method :current_user, :current_project, :null_project_session, :ref, :current_role, :admin_role
   
@@ -6,7 +9,7 @@ class ApplicationController < ActionController::Base
     if current_user
       redirect_to dashboard_url
     else
-      redirect_to root_url
+      redirect_to log_in_url
     end
   end
   
@@ -14,7 +17,6 @@ class ApplicationController < ActionController::Base
   
   def current_user
     @current_user ||= Person.find(session[:user_id]) if session[:user_id]
-    #@current_user ||= Person.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
   end
 
   def current_project
@@ -40,7 +42,6 @@ class ApplicationController < ActionController::Base
   end
   
   def ref
-   # @last_page = request.headers["HTTP_REFERER"]
     @ref = URI.parse(controller.request.env["HTTP_REFERER"])
   end
   
