@@ -3,4 +3,6 @@ class Comment < ActiveRecord::Base
   
   belongs_to :task
   belongs_to :created_person, :class_name => "Person", :foreign_key => "created_by"
+  
+  scope :is_active, where(:is_active => true) 
 end
