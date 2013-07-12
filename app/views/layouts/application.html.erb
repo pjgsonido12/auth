@@ -17,11 +17,9 @@
   <%= render :partial => 'layouts/flash', :object => flash %>
   </div>
 
-
 <% if session[:user_id] %>
 	<div id="page-head">
-	<% if current_page?(:controller => 'projects', :action => 'dashboard') %>
-	
+	<% if current_page?(:controller => 'projects', :action => 'dashboard') %>	
 	<% else %>
 	  <%= render :partial => "layouts/dashboard" %>      
     <% end %>
