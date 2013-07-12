@@ -1,7 +1,7 @@
 <div id="left-side" class="matting">
 <h3> Edit Task </h3> 
 
-<%= form_for @task, :url => project_task_url(:id => @task.id),:html => {:method => :put,:class => "person"} do |f| %>
+<%= form_for @task, :url => update_task_project_task_url(:id => @task.id),:html => {:method => :put,:class => "person"} do |f| %>
   <% if @task.errors.any? %>
     <div class="error_messages">
 	  <h2>Form is valid</h2>
