@@ -33,6 +33,10 @@ gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
 gem "carrierwave-mongoid", :require => 'carrierwave/mongoid'
 gem "mini_magick"
 
+gem 'prawn'
+
+gem 'ssl_requirement'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
