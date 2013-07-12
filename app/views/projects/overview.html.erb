@@ -1,8 +1,10 @@
 <div id="left-side" class="matting">
   <h3>Project Overview</h3>
     <ul class="campaigns">
+	<div style="text-align:justify;">
     <%= current_project.name %> <br >
-    <%= current_project.description %>
+    <%= h(current_project.description).gsub(/\n/, '<br />').html_safe %>
+    </div>
     </ul>
 </div>
 
