@@ -2,7 +2,7 @@ class Person < ActiveRecord::Base
   attr_accessible :email, :firstname, :id, :is_active, :lastname, :password, :password_confirmation, :accessible_project_ids, :auth_token, :is_system_admin
   attr_accessor :accessible_project_ids
   
-  before_create { generate_token(:auth_token) }
+  #before_create { generate_token(:auth_token) }
   
   validates_presence_of :password, :on => :create
   validates_presence_of :email
