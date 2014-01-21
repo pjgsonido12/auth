@@ -1,25 +1,24 @@
 class TasksController < ApplicationController
     def index
-      @tasks = current_project.tasks.where(['is_active = ? AND task_status_id <> ?', 1, 3])
+      @tasks = current_project.tasks.where(['is_active = ?', 1])
+      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def done_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 3])
+      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def resolved_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 4])
-    end
-    
-    def new_task
-      @tasks = current_project.tasks.where(:task_status_id => 1, :is_active => 1)
+      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def my_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id <> ? AND assigned_to = ?', 1, 3, current_user.id])
+      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
-    
-    
+            
     def show
       respond_to do |format|
         format.html {
@@ -29,12 +28,18 @@ class TasksController < ApplicationController
         @people = Person.is_active
         @permissions = Permission.where(:project_id => current_project.id)
       
-        if @task.task_status.name == 'Assigned' || @task.task_status.name == 'Re-Assigned' || @task.task_status.name == 'Re-Open'
+        if @task.task_status.name == 'Re-Assigned' || @task.task_status.name == 'Re-Open'
+          @task_statuses = TaskStatus.task_accepted
+        elsif @task.task_status.name == 'Assigned'
           @task_statuses = TaskStatus.task_assigned
         elsif @task.task_status.name == 'Accepted'
           @task_statuses = TaskStatus.task_accepted
         elsif @task.task_status.name == 'Resolved'
-          @task_statuses = TaskStatus.task_resolved         
+          @task_statuses = TaskStatus.task_resolved
+        elsif @task.task_status.name == 'New'
+          @task_statuses = TaskStatus.task_new   
+        elsif @task.task_status.name == 'Invalid'
+          @task_statuses = TaskStatus.task_invalid
         else
           @task_statuses = TaskStatus.task_done     
         end
@@ -69,6 +74,9 @@ class TasksController < ApplicationController
         @task_number = 1  
       end  
       @projects = Project.is_active
+      @severities = Severity.all
+      @task_types = TaskType.all
+      @media = Medium.all
     end
 
     def create
@@ -78,10 +86,10 @@ class TasksController < ApplicationController
         redirect_to :back
       else  
         @people = Person.find(params[:people])
-        project = Project.where(:id => current_project.id).last        
+        @project = Project.where(:id => current_project.id).last        
        if @task.save
          for person in @people
-           UserMailer.created_task(person, project, @task).deliver
+           UserMailer.created_task(person, @project, @task).deliver
          end
          flash[:notice] = "You have successfully created new task."
          redirect_to project_tasks_url
@@ -93,6 +101,9 @@ class TasksController < ApplicationController
     
     def edit
        @task = Task.find(params[:id])
+       @severities = Severity.all
+       @people = Person.is_active
+       @task_types = TaskType.all
     end
 
     def update_task
@@ -116,11 +127,11 @@ class TasksController < ApplicationController
          redirect_to :back
        else  
          @people = Person.find(params[:people])
-         project = Project.where(:id => current_project.id).last  
+         @project = Project.where(:id => current_project.id).last  
          respond_to do |format|
           if @task.update_attributes(params[:task])
             for person in @people
-              UserMailer.updated_task(person, project, @task).deliver
+              UserMailer.updated_task(person, @project, @task).deliver
             end
             flash[:notice] = "You have successfully updated task information."
             format.html { redirect_to project_task_url }
