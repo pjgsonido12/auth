@@ -8,4 +8,6 @@ class Project < ActiveRecord::Base
   
   scope :is_active, where(:is_active => true) 
   has_many :project_roles
+  
+  validates_presence_of :name
 end
