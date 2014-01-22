@@ -1,7 +1,8 @@
 @import url('master.css');
 
 form.person {
-  margin-top:20px;
+  margin-top:5px;
+  
 }
 form.person div.field input  {
   width:275px;
@@ -11,8 +12,8 @@ form.person div.field input#person_password  {
 }
 form.person div.field label  {
   float:left;
-  padding-top:4px;
   width:100px;
+  margin-top:1px;
 }
 
 /*=======================
