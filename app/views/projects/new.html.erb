@@ -1,5 +1,16 @@
-<div id="left-side" class="matting">
-<h3>New Project</h3>
+<div id="menu">
+	<ul>    
+		<li><%= link_to 'Dashboard',dashboard_url %></li>
+		<li id="current"><%= link_to 'Projects',projects_url %></li>
+		<% if admin_role %>	
+			<li><%= link_to 'People', people_url %></li>
+		<% end %>
+	</ul>
+</div>
+
+<div id="content-wrap">	
+<div id="main"> <a name="TemplateInfo"></a>
+<h1>New Project</h1>
 
 <%= form_for @project, :html => {:class => "person"} do |f| %>
   <% if @project.errors.any? %>
@@ -12,21 +23,22 @@
 	  </ul>
 	</div>
   <% end %>
-  
+  <p>
   <div class="field">
 	<%= f.label :name %>
 	<%= f.text_field :name %>
-  </div>
-  <div class="field">
+  </div></p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.label :description %>
 	<%= f.text_area :description %>
-  </div>
-  <div class="field">
+  </div></p>
 	<%= f.hidden_field :createdby, :value => current_user.id %>
-  </div>
-  <div class="field">
 	<%= f.hidden_field :is_active, :value => true %>
-  </div>
   <div class="submit"><%= f.submit%></div>
 <% end %>
+</div>
+</div>
+
+<div id="footer">
 </div>

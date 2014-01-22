@@ -1,9 +1,11 @@
-<h1>Ticketing System</h1>
-<% if admin_role %>
-  <div id="links">
-    <%= link_to 'Projects',projects_url, :class => "left" %>
-    <%= link_to '|',projects_url, :class => "left" %>
-    <%= link_to 'People', people_url, :class => "left" %>
-  </div>
-<% end %>
+
+<div id="menu">
+	<ul>    
+		<li><%= link_to 'Dashboard',dashboard_url %></li>
+		<li><%= link_to 'Projects',projects_url %></li>
+		<% if admin_role %>	
+			<li id="current"><%= link_to 'People', people_url %></li>
+		<% end %>
+	</ul>
+</div>
 

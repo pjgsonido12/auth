@@ -1,11 +1,22 @@
+<div id="menu">
+	<ul>    
+		<li id="current"><%= link_to 'Dashboard',dashboard_url %></li>
+		<li><%= link_to 'Projects',projects_url %></li>
+		<% if admin_role %>	
+			<li><%= link_to 'People', people_url %></li>
+		<% end %>
+	</ul>
+</div>
+
+
 <div id="content-wrap">
 <div id="main"> <a name="TemplateInfo"></a>
-  <h1>Dashboard - My Tasks</h1>
+  <h1>Completed - Tasks</h1>
   
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
 	  <% task_count = Comment.where(:task_id => task.id).length %>
-	  <p align="justify"><strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %> (<%= task.task_status.name%>)</strong> <%= task.description %></p>
+	  <p align="justify"><strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %></strong> (<%= task.task_status.description %> <% if current_user.id == task.assigned_to %><b>You</b><% else %><%= task.assigned_person.firstname %><% end %>) <%= task.description %></p>
 	  <p style="margin-left:10px;"> <%= task.source_person.name %> via <%= task.medium.name %></p>
 	  <p class="post-footer align-right" style="margin-top:-30px;"></a><span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
 	  </p><br />
@@ -14,7 +25,7 @@
 	
 </div>
 
-  <div id="sidebar">
+<div id="sidebar">
 	<h1>My Projects</h1>
 	<ul class="sidemenu">
 	<% for project in @projects %>
@@ -29,11 +40,11 @@
 	 <li><b><%= link_to "New Task", new_task_url,:method => :get %></b>(<%= @new_tasks.length %>)</li>
 	 <% if admin_role %>
 	   <li><b><%= link_to "Resolved Task", resolved_task_url,:method => :get %></b>(<%= @resolved_tasks.length %>)</li>
-	   <li><b><%= link_to "Completed Task", done_task_url,:method => :get %></b>(<%= @done_tasks.length %>)</li>
+	   <li><b><u><%= link_to "Completed Task", done_task_url,:method => :get %></u></b>(<%= @done_tasks.length %>)</li>
 	 <% end %>
 	 </ul>
 	
-  </div>
+</div>
 
 </div>
 

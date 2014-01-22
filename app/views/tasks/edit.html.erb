@@ -1,5 +1,6 @@
-<div id="left-side" class="matting">
-<h3> Edit Task </h3> 
+<div id="content-wrap">
+<div id="main"> <a name="TemplateInfo"></a>	
+<h1> Edit Task </h1> 
 
 <%= form_for @task, :url => update_task_project_task_url(:id => @task.id),:html => {:method => :put,:class => "person"} do |f| %>
   <% if @task.errors.any? %>
@@ -12,32 +13,68 @@
 	  </ul>
 	</div>
   <% end %>
-  
+  <p>
   <div class='field'>
 	<%= f.label :title %>
 	<%= f.text_field :title %>
   </div>
-  <div class='field'>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :task_type_id %>    
+    <%= f.select :task_type_id, @task_types.map {|t| [t.name,t.id] }, {} %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.label :description %>
 	<%= f.text_area :description %>
   </div>
+  </p>
   <div class='field'>
 	<%= f.hidden_field :project_id, :value => current_project.id %>
 	<%= f.hidden_field :updated_by, :value => current_user.id %>
   </div>
-
-  <div class='field'>
-	<%= f.label :due_date %>
-	<%= f.date_select :due_date, :ampm => true, :start_year => 2011, :order => [:month, :day, :year] %>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.check_box :is_priority %>
+	<b><%= f.label :is_priority %></b>
   </div>
+  </p>
+  <p>
+  <div style="margin-top:-55px;margin-left:125px;">	
+    <b>Due Date : </b>  <%= f.date_select :due_date, :ampm => true, :start_year => 2011, :order => [:month, :day, :year] %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :severity %>    
+    <%= f.select :severity_id, @severities.map {|t| [t.name,t.id] }, {} %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :source %>
+    <%= f.select :person_id, @people.map {|t| [t.name,t.id] }, {} %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :repository_link %>
+	<%= f.text_field :repository_link %>
+  </div>
+  </p>
   <div class="submit">
-      <%= submit_tag "Update task" %><small>or <%= link_to 'cancel', project_task_url(:project_id => current_project.id, :id => @task.id), :class => "red" %></small>
+      <%= submit_tag "Update task", :class => "button" %><small> or <%= link_to 'cancel', project_task_url(:project_id => current_project.id, :id => @task.id), :class => "red" %></small>
   </div>
 <% end %>
 </div>
 
-<div id="right-side">
-  <div class='field'> Deleting this task will make status in active. 
-  </div>
-  <%= button_to("Delete Task", cancel_project_task_url(:project_id => current_project.id, :id => @task.id), {:onclick => "return confirm('Are you sure you want to delete this task?')", :method => :put }) %>
+<div id="sidebar">
+  <h1> Deleting this task will make status in active. </h1>
+  <%= button_to("Delete Task", cancel_project_task_url(:project_id => current_project.id, :id => @task.id), {:onclick => "return confirm('Are you sure you want to delete this task?')", :method => :put, :class => "button" }) %>
+</div>
+
+</div>
+<div id="footer">
 </div>

@@ -1,9 +1,7 @@
-<div id='links'>
-   <%= link_to 'Log out', log_out_url,:class => "right" %>	
-   <%= link_to 'My Info' + " | " ,person_url(current_user),:class => "right" %>
-   
-   <div class='right'>	
-   <%= current_user.firstname %>
-   <%= current_user.lastname %>  | 
-   </div>
-</div>
+
+   <p style="background: #FFF;color: #667F99;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;height: 12px;font-size: 9px;">
+<b><%= current_user.name %></b>
+<%= link_to '| My Info |' ,person_url(current_user) %>
+<%= link_to ' Log out', log_out_url %>	  
+   </p>
+

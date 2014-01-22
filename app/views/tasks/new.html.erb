@@ -1,5 +1,6 @@
-<div id="left-side" class="matting">
-<h3> New Task </h3> 
+<div id="content-wrap">
+<div id="main"> <a name="TemplateInfo"></a>	
+<h1> New Task </h1> 
 
   <%= form_for @task, :url => project_tasks_url, :html => {:class => "person"} do |f| %>
   <% if @task.errors.any? %>
@@ -12,23 +13,62 @@
 	  </ul>
 	</div>
   <% end %>
-  
+  <p>
   <div class="field">
 	<%= f.label :title %>
 	<%= f.text_field :title %>
   </div>
-  <div class="field">
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :task_type_id %>
+    <%= f.select :task_type_id, options_for_select(@task_types.collect{ |u| [u.name, u.id] }) %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.label :description %>
 	<%= f.text_area :description %>
   </div>
+  </p>
   <div class="field">
 	<%= f.hidden_field :project_id, :value => current_project.id %>
 	<%= f.hidden_field :created_by, :value => current_user.id %>
   </div>
-  <div class="field">
-	<%= f.label :due_date %>
-	<%= f.date_select :due_date, :ampm => true, :start_year => 2011, :order => [:month, :day, :year] %>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.check_box :is_priority %>
+	<b><%= f.label :is_priority %></b>
   </div>
+  </p>
+  <p>
+  <div style="margin-top:-55px;margin-left:125px;">	
+    <b>Due Date : </b>  <%= f.date_select :due_date, :ampm => true, :start_year => 2011, :order => [:month, :day, :year] %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :severity %>
+    <%= f.select :severity_id, options_for_select(@severities.collect{ |u| [u.name, u.id] }) %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :source %>
+    <%= f.select :person_id, options_for_select(@people.collect{ |p| [p.name, p.id] }) %>
+  </div>
+  </p>
+  <p>
+  <div style="margin-top:-58px;margin-left:250px;">
+    <b>via : </b>  <%= f.select :medium_id, options_for_select(@media.collect{ |p| [p.name, p.id] }) %>
+  </div>
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
+	<%= f.label :repository_link %>
+	<%= f.text_field :repository_link %>
+  </div>
+  </p>
   <div class="field">
 	<%= f.hidden_field :is_active, :value => true %>
 	<%= f.hidden_field :task_status_id, :value => 1 %>
@@ -38,9 +78,9 @@
   <div class="submit"><%= f.submit%></div>
 </div>
 
-<div id="right-side">
-  <h5> Person to notify: </h5>
-    <div style="font-size:12px;">
+<div id="sidebar">
+  <h1> Person to notify: </h1>
+    <p>
 	  <% check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'people')" }) %>
     <% @permissions.each do |permission| %>
 	  <% if permission.person_id == current_user.id || permission.person_id == 30 %>	
@@ -51,6 +91,10 @@
 	&nbsp;<span><%= permission.person.name %>
    <br>
     <% end %>
-    </div>
+    </p>
 </div>
 <% end %>
+
+</div>
+<div id="footer">
+</div>

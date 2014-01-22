@@ -1,11 +1,19 @@
-<div id="left-side" class="matting">
-  <h3><%= @person.firstname %> Information</h3> 
-  <ul class="campaigns">
+<%= render :partial => "layouts/mainlinks" %>
+<div id="content-wrap">
+
+<div id="sidebar">
+  <%= button_to "Edit Person", edit_person_url,:method => :get, :class => "button" %>
+</div>
+
+<div id="main"> <a name="TemplateInfo"></a>
+  <h1><%= @person.firstname %> Information</h1> 
+  <p>
 	      <b>Name:   </b><%= @person.name %> </br>
 	      <b>E-mail: </b><%= @person.email %>
-  </ul>
+  <p>
 </div>	
 
-<div id="right-side">
-  <%= button_to "Edit Person", edit_person_url,:method => :get %>
+</div>
+
+<div id="footer">
 </div>

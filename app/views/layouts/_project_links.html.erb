@@ -1,13 +1,33 @@
-<h1>Ticketing System</h1> 
-
-  <div id='links'>
-    <%= link_to 'Overview', overview_project_url(current_project), :class => "left" %>
-    <%= link_to '|', overview_project_url(current_project), :class => "left" %>
+<div id="menu">
+	<ul>
+	<% if current_page?(project_permissions_url(current_project)) %>
+	<li><%= link_to 'Dashboard',dashboard_url %></li>
+    <li><%= link_to 'Overview', overview_project_url(current_project) %></li>   
   <% if current_role == 'Administrator' || admin_role %>
-    <%= link_to 'Permissions', project_permissions_url(current_project), :class => "left" %>
-    <%= link_to '|', project_permissions_url(current_project), :class => "left" %>
+    	<li id="current"><%= link_to 'Permissions', project_permissions_url(current_project) %></li>
   <% end %>
-    <%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %>
-  </div>
+    <li><%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %></li>
+
+	<% elsif current_page?(overview_project_url(current_project)) %>
+	<li><%= link_to 'Dashboard',dashboard_url %></li>
+    <li id="current"><%= link_to 'Overview', overview_project_url(current_project) %></li>   
+  <% if current_role == 'Administrator' || admin_role %>
+    	<li><%= link_to 'Permissions', project_permissions_url(current_project) %></li>
+  <% end %>
+    <li><%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %></li>
+
+	<% else %>
+	<li><%= link_to 'Dashboard',dashboard_url %></li>
+    <li><%= link_to 'Overview', overview_project_url(current_project) %></li>   
+  <% if current_role == 'Administrator' || admin_role %>
+    	<li><%= link_to 'Permissions', project_permissions_url(current_project) %></li>
+  <% end %>
+    <li id="current"><%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %></li>
+	<% end %>
+	</ul>
+</div>
+
+
+
 
 

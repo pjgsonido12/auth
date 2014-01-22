@@ -1,16 +1,17 @@
-<div id="left-side" class="matting">
-  <h3>Project Overview</h3>
-    <ul class="campaigns">
-	<div style="text-align:justify;">
-    <%= current_project.name %> <br >
-    <%= h(current_project.description).gsub(/\n/, '<br />').html_safe %>
-    </div>
-    </ul>
+<div id="content-wrap">
+	<div id="sidebar">	 
+	  <% if current_role == 'Administrator' || admin_role %>
+      <%= button_to "Edit Project", edit_project_url,:method => :get, :class => "button" %>
+	  <% end %>	   
+	</div>
+
+	<div id="main"> <a name="TemplateInfo"></a>
+	  <h1><%= current_project.name %></h1> 
+	  <div style="text-align:justify;">    
+        <p><%= h(current_project.description).gsub(/\n/, '<br />').html_safe %></p>
+      </div>
+    </div>	
 </div>
 
-<div id="right-side">
-  <% if current_role == 'Administrator' || admin_role %>
-    <%= button_to "Edit Project", edit_project_url,:method => :get %>
-  <% end %>
+<div id="footer">
 </div>
-

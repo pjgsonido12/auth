@@ -1,16 +1,19 @@
-<div id="left-side" class="matting">
-  <h3> Projects </h3> 
-
-  <ul class="campaigns">
-    <% for project in @projects %>
-    <li class="campaign">
-      <%= link_to project.name, overview_project_url(project) %> 
-     </li>
-    <% end %>
-  </ul>
-
+<div id="content-wrap">
+  <div id="sidebar">
+    <%= button_to "Add Project", new_project_url,:method => :get, :class => "button" %>
+  </div>
+	
+  <div id="main"> <a name="TemplateInfo"></a>
+  <h1> Projects </h1> 
+  	<% for project in @projects %>
+	  <% project_tasks_count = Task.where(:project_id => project.id).length %>
+	  <blockquote><p><strong><%= link_to project.name, overview_project_url(project) %></strong>(<%= project_tasks_count %>)</p></blockquote>
+	  <p class="post-footer align-right"></a>Start<span class="date"><%= project.created_at.strftime("%d %B %Y") %></span> End <span class="date"><%= project.updated_at.strftime("%d %B %Y") %></span> </p>
+	<% end %>
+	<br/>
+  </div>
 </div>
 
-<div id="right-side" class="add-project">
-  <%= button_to "Add Project", new_project_url,:method => :get %>
+<div id="footer">
 </div>
+

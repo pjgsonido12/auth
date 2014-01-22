@@ -1,5 +1,8 @@
-<div id="left-side" class="matting">
-<h3>Add Person Information</h3>
+<%= render :partial => "layouts/mainlinks" %>
+
+<div id="content-wrap">
+<div id="main"> <a name="TemplateInfo"></a>
+<h1>Add Person Information</h1>
 
 <%= form_for @person,:html => {:class => "person"} do |f| %>
   <% if @person.errors.any? %>
@@ -12,35 +15,52 @@
 	  </ul>
 	</div>
   <% end %>
-  
+  <p>
   <div class="field">
 	<%= f.label :firstname %>
 	<%= f.text_field :firstname %>
   </div>
-  <div class="field">
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.label :lastname %>
 	<%= f.text_field :lastname %>
   </div>
+  </p>
   <div class="field">
 	<%= f.label :email %>
 	<%= f.text_field :email %>
   </div>
-  <div class="field">
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.label :password %>
 	<%= f.password_field :password, :style => "width:275px" %>
   </div>
-  <div class="field">
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.label :password_confirmation %>
 	<%= f.password_field :password_confirmation %>
   </div>
-  <div class="field">
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.hidden_field :is_active, :value => true %>
   </div>
-  <div style="margin-left:2cm;display: inline;">
+  </p>
+  <p>
+  <div class="field", style="margin-top:-30px;">
 	<%= f.check_box :is_system_admin %>
 	<b><%= f.label :is_system_admin %></b>
   </div>
+  </p>
   <%#TODO Confirm password%>
+  <br />
    <div class="submit"><%= f.submit%></div>
 <% end %>
+</div>
+</div>
+
+<div id="footer">
 </div>
