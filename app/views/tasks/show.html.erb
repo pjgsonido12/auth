@@ -111,8 +111,8 @@ $j(document).ready(function() {
 
   <h1> Assigned Task to: </h1>
   <p>
-	<%= f.text_field :reassigned_count , :id => "reassigned" %>
-	<%= f.text_field :reopen_count , :id => "reopen" %>
+	<%= f.hidden_field :reassigned_count , :id => "reassigned" %>
+	<%= f.hidden_field :reopen_count , :id => "reopen" %>
 	
 	  <% if @task.task_status.name == 'Invalid' %> 
 	    <%= f.hidden_field :task_status_id, :value => 2 %>
