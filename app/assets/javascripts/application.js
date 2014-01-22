@@ -19,9 +19,7 @@
 
 setTimeout("$('#flash').html(' ');", 3000);
 
-function handleSelect() {
-    alert('ezra');
- }
+
 
 function toggleMaster(checkbox, master) {
   master = $j(master)
