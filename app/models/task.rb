@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :assigned_to, :created_by, :description, :due_date, :is_active, :project_id, :status, :title, :updated_by, :id, :task_status_id, :task_number, :date_completed, :person_id, :severity_id, :repository_link, :is_priority, :task_type_id, :date_resolved, :medium_id, :error_count
+  attr_accessible :assigned_to, :created_by, :description, :due_date, :is_active, :project_id, :status, :title, :updated_by, :id, :task_status_id, :task_number, :date_completed, :person_id, :severity_id, :repository_link, :is_priority, :task_type_id, :date_resolved, :medium_id, :error_count, :reassigned_count, :reopen_count
 
   belongs_to :project
   has_many :comments
