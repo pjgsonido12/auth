@@ -3,16 +3,23 @@ $j(document).ready(function() {
   $j('#task_task_status_id').change(function(){
 	var txt = $j("#task_task_status_id :selected").text();
 	if(txt == 'Re-Assigned'){	  
-	  $j('#test').val(Number('<%= @task.error_count %>') + (1));
+	  $j('#reassigned').val(Number('<%= @task.reassigned_count %>') + (1));
+	  $j('#reopen').val('<%= @task.reopen_count %>');
+	  }
+	else if(txt == 'Re-Open'){	  
+	  $j('#reassigned').val('<%= @task.reassigned_count %>');
+	  $j('#reopen').val(Number('<%= @task.reopen_count %>') + (1));
 	  }
 	else if(txt == 'Invalid' ){
 	  $j('#ddlViewBy').attr('disabled', 'disabled');
 	  $j('#ddlViewBy').val('<%= @task.assigned_to %>');
-	  $j('#test').val('<%= @task.error_count %>');
+	  $j('#reassigned').val('<%= @task.reassigned_count %>');
+	  $j('#reopen').val('<%= @task.reopen_count %>');
 	  }	
     else{
       $j('#ddlViewBy').removeAttr('disabled');	
-      $j('#test').val('<%= @task.error_count %>');
+      $j('#reassigned').val('<%= @task.reassigned_count %>');
+      $j('#reopen').val('<%= @task.reopen_count %>');
 	}
   });
 
@@ -35,11 +42,12 @@ $j(document).ready(function() {
 	  <p style="margin-top:-20px;"><strong>Created by:</strong> <%= @task.created_person.name %></p>
       <p style="margin-top:-20px;"><strong>Created at:</strong> <%= @task.created_at.strftime("%d %B %Y") %></p>
       <p style="margin-top:-20px;"><strong>Assigned to:</strong> <%= @task.assigned_person.name %></p>
-	  <p style="margin-top:-20px;"><strong>ERROR COUNT:</strong> <%= @task.error_count %></p>
-	  <% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Done'%>
+	  <p style="margin-top:-20px;"><strong>RE-ASSIGNED COUNT:</strong> <%= @task.reassigned_count %></p>
+	  <p style="margin-top:-20px;"><strong>RE-OPEN COUNT:</strong> <%= @task.reopen_count %></p>
+	  <% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed'%>
 	    <p style="margin-top:-20px;"><strong>Date Resolved:</strong> <%= @task.date_resolved.strftime("%d %B %Y") %></p>
 	  <% end %>
-      <% if @task.task_status.name == 'Done'%>
+      <% if @task.task_status.name == 'Closed'%>
         <p style="margin-top:-20px;"><strong>Date Completed:</strong> <%= @task.date_completed.strftime("%d %B %Y") %></p>
       <% end %> </br>    
       <p style="margin-top:-20px;"><code><strong>Repository Link:</strong> <%= @task.repository_link %></code></p><br />
@@ -80,7 +88,7 @@ $j(document).ready(function() {
 </div>
 
 <div id="sidebar">
-<% if current_role == 'Administrator' || admin_role || ( @task.assigned_to == current_user.id && (@task.task_status.name != 'Resolved' && @task.task_status.name != 'Done' && @task.task_status.name != 'Invalid' && @task.task_status.name != 'New') )   %>
+<% if current_role == 'Administrator' || admin_role || ( @task.assigned_to == current_user.id && (@task.task_status.name != 'Resolved' && @task.task_status.name != 'Closed' && @task.task_status.name != 'Invalid' && @task.task_status.name != 'New') )   %>
     <%= button_to "Edit Task", edit_project_task_url(:project_id => current_project.id, :id => @task.id), :method => :get, :class => "button" %>
 
   
@@ -103,7 +111,8 @@ $j(document).ready(function() {
 
   <h1> Assigned Task to: </h1>
   <p>
-	<%= f.hidden_field :error_count , :id => "test" %>
+	<%= f.text_field :reassigned_count , :id => "reassigned" %>
+	<%= f.text_field :reopen_count , :id => "reopen" %>
 	
 	  <% if @task.task_status.name == 'Invalid' %> 
 	    <%= f.hidden_field :task_status_id, :value => 2 %>
@@ -112,7 +121,7 @@ $j(document).ready(function() {
 	    <%= f.select :task_status_id, @task_statuses.map {|t| [t.name,t.id] }, {}, :style => "width:150px", :onclick => "handleSelect()" %>
 	   <% end %>
 	
-	   <% if @task.task_status.name == 'Assigned' || @task.task_status.name == 'Accepted' || @task.task_status.name == 'Resolved' || @task.task_status.name == 'Done' || @task.task_status.name == 'Re-Open' || @task.task_status.name == 'Re-Assigned' %>
+	   <% if @task.task_status.name == 'Assigned' || @task.task_status.name == 'Accepted' || @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed' || @task.task_status.name == 'Re-Open' || @task.task_status.name == 'Re-Assigned' %>
 		<% if @task.task_status.name == 'Accepted' %>
 		  <%= f.hidden_field :date_resolved, :value => Time.now %>
 		<% end %>
