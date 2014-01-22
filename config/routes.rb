@@ -10,8 +10,13 @@ Auth::Application.routes.draw do
   get "sign_up" => "people#new", :as => "sign_up"
   get "log_out" => "sessions#destroy", :as => "log_out"
   match 'dashboard' => 'projects#dashboard', :as => 'dashboard'
+  match 'overdue' => 'projects#overdue', :as => 'overdue'
+  match 'new_task' => 'projects#new_task', :as => 'new_task'
+  match 'resolved_task' => 'projects#resolved_task', :as => 'resolved_task'
+  match 'done_task' => 'projects#done_task', :as => 'done_task'
   match '/permissions/update_role' => 'permissions#update_role', :as => 'update_role', :via => [:put]
   match "/", :to => "application#index", :as => :application
+  post '/email_processor' => 'griddler/emails#create'
   
   root :to => "sessions#new"
     
@@ -41,6 +46,7 @@ Auth::Application.routes.draw do
         get :my_task
         get :done_task
         get :resolved_task
+        get :overdue
       end  
       resources :comments
     end
