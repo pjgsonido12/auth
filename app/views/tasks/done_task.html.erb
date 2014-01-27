@@ -5,7 +5,11 @@
 
 		<br />
 	  <% for task in @tasks %>
-	    <p class="post-footer align-left">
+		<% if current_user.id == task.assigned_to %>
+		<p class="post-footer_you align-left">
+		<% else %>
+		<p class="post-footer align-left">
+		<% end %>
 	    <b><%= link_to "##{task.task_number} " + " - " + task.title, project_task_url(:project_id => current_project.id, :id => task.id) %></b>
 	    (<%= task.task_status.description %>   
 		<% if current_user.id == task.assigned_to %>

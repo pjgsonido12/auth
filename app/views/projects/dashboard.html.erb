@@ -5,9 +5,10 @@
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
 	  <% task_count = Comment.where(:task_id => task.id).length %>
-	  <p align="justify"><strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %> (<%= task.task_status.name%>)</strong> <%= task.description %></p>
-	  <p style="margin-left:10px;"> <%= task.source_person.name %> via <%= task.medium.name %></p>
-	  <p class="post-footer align-right" style="margin-top:-30px;"></a><span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
+	    <p class="blockquote" align="justify">
+		<strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %> (<%= task.task_status.name %>)</strong> <%= task.description %></p>
+	  <p style="margin-left:20px;margin-top:-16px;"> <%= task.source_person.name %> via <%= task.medium.name %></p>
+	  <p class="post-footer align-right" style="margin-top:-30px;"><span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
 	  </p><br />
 	<% end %>
 	<center><%= will_paginate @tasks %></center>
