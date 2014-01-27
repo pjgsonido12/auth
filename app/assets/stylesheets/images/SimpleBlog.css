@@ -241,7 +241,54 @@ form.search input.button {
 	border: 1px solid #f2f2f2;
 	font-size: 95%;	
 }
+
+.post-footer_you {
+	background-color: #F5F5DC;
+	padding: 5px; margin: -10px 0px 0 10px;
+	border: 1px solid #f2f2f2;
+	font-size: 95%;	
+}
+
+.blockquote {
+	margin: 10px 0px 10px 10px;
+ 	padding: 10px 10px 10px 38px;  
+    border: 1px solid #f2f2f2; 
+  	background: #FAFAFA url(quote.gif) no-repeat 5px 5px;    
+}
+
+.blockquote_you {
+	margin: 10px 0px 10px 10px;
+ 	padding: 10px 10px 10px 38px;  
+    border: 1px solid #f2f2f2; 
+  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
+}
+
+.blockquote_new {
+	margin: 10px 0px 10px 10px;
+ 	padding: 10px 10px 10px 38px;  
+    border: 1px solid #f2f2f2; 
+  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
+}
+
+.blockquote_reassign {
+	margin: 10px 0px 10px 10px;
+ 	padding: 10px 10px 10px 38px;  
+    border: 1px solid #f2f2f2; 
+  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
+}
+
+.blockquote_reopen {
+	margin: 10px 0px 10px 10px;
+ 	padding: 10px 10px 10px 38px;  
+    border: 1px solid #f2f2f2; 
+  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
+}
+
 .post-footer .date {
+	background: url(clock.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer_you .date {
 	background: url(clock.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
@@ -249,7 +296,15 @@ form.search input.button {
 	background: url(comment.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
+.post-footer_you .comments {
+	background: url(comment.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
 .post-footer .readmore {
+	background: url(page.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer_you .readmore {
 	background: url(page.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
