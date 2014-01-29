@@ -1,12 +1,4 @@
 /********************************************
-   AUTHOR:  			Erwin Aligam 
-   WEBSITE:   			http://www.styleshout.com/
-   TEMPLATE NAME: 	SimpleBlog 1.0
-	TEMPLATE CODE: 	S-0007
-   VERSION:          1.0          	
- *******************************************/
- 
-/********************************************
    HTML ELEMENTS
 ********************************************/ 
 
@@ -79,7 +71,7 @@ blockquote {
 	margin: 10px 0px 10px 10px;
  	padding: 0 0 0 28px;  
     border: 1px solid #f2f2f2; 
-  	background: #FAFAFA url(quote.gif) no-repeat 5px 5px;    
+  	background: #FAFAFA url(tasks.png) no-repeat 5px 5px;  
 }
 
 /* form elements */
@@ -165,7 +157,7 @@ form.search input.button {
 #header h1#logo {
 	position: absolute;
 	margin: 0; padding: 0;
-	font: bold 42px 'Trebuchet MS', Arial, Sans-serif;
+	font: bold 55px 'Trebuchet MS', Arial, Sans-serif;
 	letter-spacing: -2px;
 	color: #FFF;
 	text-transform: none;
@@ -249,39 +241,47 @@ form.search input.button {
 	font-size: 95%;	
 }
 
+.post-footer_assign {
+	background-color: #E0FFFF;
+	padding: 5px; margin: -10px 0px 0 10px;
+	border: 1px solid #f2f2f2;
+	font-size: 95%;	
+}
+
+.post-footer_reassign {
+	background-color: #D0FEC6;
+	padding: 5px; margin: -10px 0px 0 10px;
+	border: 1px solid #f2f2f2;
+	font-size: 95%;	
+}
+
+
 .blockquote {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #FAFAFA url(quote.gif) no-repeat 5px 5px;    
+  	background: #FAFAFA url(tasks.png) no-repeat 5px 5px;    
 }
 
 .blockquote_you {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
+  	background: #F5F5DC url(tasks.png) no-repeat 5px 5px;  
 }
 
-.blockquote_new {
+.blockquote_assign {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
+  	background: #E0FFFF url(tasks.png) no-repeat 5px 5px;
 }
 
 .blockquote_reassign {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
-}
-
-.blockquote_reopen {
-	margin: 10px 0px 10px 10px;
- 	padding: 10px 10px 10px 38px;  
-    border: 1px solid #f2f2f2; 
-  	background: #F5F5DC url(quote.gif) no-repeat 5px 5px;    
+  	background: #D0FEC6 url(tasks.png) no-repeat 5px 5px;
 }
 
 .post-footer .date {
@@ -289,6 +289,14 @@ form.search input.button {
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_you .date {
+	background: url(clock.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer_assign .date {
+	background: url(clock.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer_reassign .date {
 	background: url(clock.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
@@ -300,11 +308,27 @@ form.search input.button {
 	background: url(comment.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
+.post-footer_assign .comments {
+	background: url(comment.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer_reassign .comments {
+	background: url(comment.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
 .post-footer .readmore {
 	background: url(page.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_you .readmore {
+	background: url(page.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer_assign .readmore {
+	background: url(page.gif) no-repeat left center;
+	padding-left: 20px; margin: 0 10px 0 5px;
+}
+.post-footer_reassign .readmore {
 	background: url(page.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
