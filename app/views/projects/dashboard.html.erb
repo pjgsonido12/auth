@@ -5,10 +5,23 @@
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
 	  <% task_count = Comment.where(:task_id => task.id).length %>
+	  <% if task.task_status.name == "Assigned" %>
+	    <p class="blockquote_assign" align="justify">
+	  <% elsif task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
+		<p class="blockquote_reassign" align="justify">
+	  <% else %>
 	    <p class="blockquote" align="justify">
-		<strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %> (<%= task.task_status.name %>)</strong> <%= task.description %></p>
+	  <% end %>
+		<strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %> (<%= task.task_status.name %>)</strong> <%= truncate(task.description, :length => 250, :omission=>("...")) %></p>
 	  <p style="margin-left:20px;margin-top:-16px;"> <%= task.source_person.name %> via <%= task.medium.name %></p>
-	  <p class="post-footer align-right" style="margin-top:-30px;"><span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
+	  <% if task.task_status.name == "Assigned" %>
+		<p class="post-footer_assign align-right" style="margin-top:-30px;">
+	  <% elsif task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
+	    <p class="post-footer_reassign align-right" style="margin-top:-30px;">
+	  <% else %>
+		<p class="post-footer align-right" style="margin-top:-30px;">
+	  <% end %>
+	  <span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
 	  </p><br />
 	<% end %>
 	<center><%= will_paginate @tasks %></center>

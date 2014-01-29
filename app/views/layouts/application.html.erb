@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Task Tracker</title>
+  <title>Chronos</title>
   <%= stylesheet_link_tag    "application", "people", :media => "all" %>
   <%= javascript_include_tag "application","jquery-1.4.2.min", "rails" %>
   <%= javascript_include_tag 'jquery-1.4.2.min','jquery','jquery-ui','jquery_ujs'%>
@@ -23,8 +23,7 @@
 <% if session[:user_id] %>	
 <div id="wrap">
   <div id="header">
-    <h1 id="logo">Task<span class="gray">Tracker</span></h1>
-    <h2 id="slogan">designed to organize and execute team tasks. . .</h2>
+    <h1 id="logo">Chro<span class="gray">nos</span></h1>
 	<div id="searchform">
       <%= render :partial => "layouts/nav" %>
     </div>
