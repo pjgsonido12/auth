@@ -258,30 +258,30 @@ form.search input.button {
 
 .blockquote {
 	margin: 10px 0px 10px 10px;
- 	padding: 10px 10px 10px 38px;  
+ 	padding: 10px 10px 10px 18px;  
     border: 1px solid #f2f2f2; 
-  	background: #FAFAFA url(/assets/bullet.gif) no-repeat 15px 10px;   
+  	background: #FAFAFA no-repeat 15px 10px;   
 }
 
 .blockquote_you {
 	margin: 10px 0px 10px 10px;
- 	padding: 10px 10px 10px 38px;  
+ 	padding: 10px 10px 10px 18px;  
     border: 1px solid #f2f2f2; 
-  	background: #F5F5DC url(/assets/bullet.gif) no-repeat 15px 10px;
+  	background: #F5F5DC no-repeat 15px 10px;
 }
 
 .blockquote_assign {
 	margin: 10px 0px 10px 10px;
- 	padding: 10px 10px 10px 38px;  
+ 	padding: 10px 10px 10px 18px;  
     border: 1px solid #f2f2f2; 
-  	background: #E0FFFF url(/assets/bullet.gif) no-repeat 15px 10px;
+  	background: #E0FFFF no-repeat 15px 10px;
 }
 
 .blockquote_reassign {
 	margin: 10px 0px 10px 10px;
- 	padding: 10px 10px 10px 38px;  
+ 	padding: 10px 10px 10px 18px;  
     border: 1px solid #f2f2f2; 
-  	background: #D0FEC6 url(/assets/bullet.gif) no-repeat 15px 10px;
+  	background: #D0FEC6 no-repeat 15px 10px;
 }
 
 .post-footer .date {
