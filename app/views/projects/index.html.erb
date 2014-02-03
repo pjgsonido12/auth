@@ -8,7 +8,7 @@
   	<% for project in @projects %>
 	  <% project_per_task = Task.where(:project_id => project.id) %>
 	  <p style="margin-left:10px;"> <strong><%= link_to project.name, overview_project_url(project) %></strong>(<%= project_per_task.length %>)</p>
-	  <p class="post-footer align-right" style="margin-top:-30px;">Created<span class="comments"><%= project.created_at.strftime("%d %B %Y") %></span></p>
+	  <p class="post-footer align-right" style="margin-top:-30px;">Created<span class="date"><%= project.created_at.strftime("%d %B %Y") %></span></p>
 	<% end %>
 	<br/>
   </div>
