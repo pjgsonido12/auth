@@ -71,7 +71,7 @@ blockquote {
 	margin: 10px 0px 10px 10px;
  	padding: 0 0 0 28px;  
     border: 1px solid #f2f2f2; 
-  	background: #FAFAFA url(/assets/tasks.png) no-repeat 5px 5px;  
+  	background: #FAFAFA url(/assets/quote.gif) no-repeat 5px 5px;  
 }
 
 /* form elements */
@@ -260,28 +260,28 @@ form.search input.button {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #FAFAFA url(/assets/tasks.png) no-repeat 5px 5px;    
+  	background: #FAFAFA url(/assets/quote.gif) no-repeat 5px 5px;    
 }
 
 .blockquote_you {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #F5F5DC url(/assets/tasks.png) no-repeat 5px 5px;  
+  	background: #F5F5DC url(/assets/quote.gif) no-repeat 5px 5px;  
 }
 
 .blockquote_assign {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #E0FFFF url(/assets/tasks.png) no-repeat 5px 5px;
+  	background: #E0FFFF url(/assets/quote.gif) no-repeat 5px 5px;
 }
 
 .blockquote_reassign {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #D0FEC6 url(/assets/tasks.png) no-repeat 5px 5px;
+  	background: #D0FEC6 url(/assets/quote.gif) no-repeat 5px 5px;
 }
 
 .post-footer .date {
