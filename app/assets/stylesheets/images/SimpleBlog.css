@@ -71,7 +71,7 @@ blockquote {
 	margin: 10px 0px 10px 10px;
  	padding: 0 0 0 28px;  
     border: 1px solid #f2f2f2; 
-  	background: #FAFAFA url(tasks.png) no-repeat 5px 5px;  
+  	background: #FAFAFA url(/assets/tasks.png) no-repeat 5px 5px;  
 }
 
 /* form elements */
@@ -133,7 +133,7 @@ form.search input.button {
 ********************************************/ 
 #wrap {
 	width: 1000px;
-	background: url(bg.jpg) repeat-y center top;
+	background: url(/assets/bg.jpg) repeat-y center top;
 	margin: 0 auto;
 	text-align: left;
 }
@@ -186,7 +186,7 @@ form.search input.button {
 	clear: both;
 	width: 1000px;
 	height: 26px;
-	background: #FFF url(menubg.jpg) repeat-y;
+	background: #FFF url(/assets/menubg.jpg) repeat-y;
 	margin: 0;
 	font: bolder 12px/26px Tahoma, Verdana, Arial, Sans-Serif;			
 }
@@ -222,7 +222,7 @@ form.search input.button {
 #main h1 {
 	color: #667F99; 
 	border-bottom: 1px solid #CCCCCC;
-	background: #F6F6F6 url(arrow.gif) no-repeat 5px 50%;	
+	background: #F6F6F6 url(/assets/arrow.gif) no-repeat 5px 50%;	
 	padding: 3px 0 3px 20px;	
 	margin: 10px 0 0 0;
 }
@@ -260,76 +260,76 @@ form.search input.button {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #FAFAFA url(tasks.png) no-repeat 5px 5px;    
+  	background: #FAFAFA url(/assets/tasks.png) no-repeat 5px 5px;    
 }
 
 .blockquote_you {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #F5F5DC url(tasks.png) no-repeat 5px 5px;  
+  	background: #F5F5DC url(/assets/tasks.png) no-repeat 5px 5px;  
 }
 
 .blockquote_assign {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #E0FFFF url(tasks.png) no-repeat 5px 5px;
+  	background: #E0FFFF url(/assets/tasks.png) no-repeat 5px 5px;
 }
 
 .blockquote_reassign {
 	margin: 10px 0px 10px 10px;
  	padding: 10px 10px 10px 38px;  
     border: 1px solid #f2f2f2; 
-  	background: #D0FEC6 url(tasks.png) no-repeat 5px 5px;
+  	background: #D0FEC6 url(/assets/tasks.png) no-repeat 5px 5px;
 }
 
 .post-footer .date {
-	background: url(clock.gif) no-repeat left center;
+	background: url(/assets/clock.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_you .date {
-	background: url(clock.gif) no-repeat left center;
+	background: url(/assets/clock.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_assign .date {
-	background: url(clock.gif) no-repeat left center;
+	background: url(/assets/clock.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_reassign .date {
-	background: url(clock.gif) no-repeat left center;
+	background: url(/assets/clock.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer .comments {
-	background: url(comment.gif) no-repeat left center;
+	background: url(/assets/comment.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_you .comments {
-	background: url(comment.gif) no-repeat left center;
+	background: url(/assets/comment.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_assign .comments {
-	background: url(comment.gif) no-repeat left center;
+	background: url(/assets/comment.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_reassign .comments {
-	background: url(comment.gif) no-repeat left center;
+	background: url(/assets/comment.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer .readmore {
-	background: url(page.gif) no-repeat left center;
+	background: url(/assets/page.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_you .readmore {
-	background: url(page.gif) no-repeat left center;
+	background: url(/assets/page.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_assign .readmore {
-	background: url(page.gif) no-repeat left center;
+	background: url(/assets/page.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 .post-footer_reassign .readmore {
-	background: url(page.gif) no-repeat left center;
+	background: url(/assets/page.gif) no-repeat left center;
 	padding-left: 20px; margin: 0 10px 0 5px;
 }
 
@@ -354,7 +354,7 @@ form.search input.button {
 }
 #sidebar ul.sidemenu li {
 	border-bottom: 1px solid #EFF0F1;
-	background: url(page.gif) no-repeat 2px 3px ;
+	background: url(/assets/page.gif) no-repeat 2px 3px ;
 	padding: 2px 0 2px 25px;
 	margin: 0 2px;			 
 }
@@ -372,7 +372,7 @@ form.search input.button {
 	clear: both;
 	color: #66737B;
 	font: normal 90% Verdana, Tahoma, sans-serif;
-	background: #FFF url(footerbg.jpg) no-repeat center top;	
+	background: #FFF url(/assets/footerbg.jpg) no-repeat center top;	
 	width: 1000px;
 	height: 60px;
 	text-align: center;
