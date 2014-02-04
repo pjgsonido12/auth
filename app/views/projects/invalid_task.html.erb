@@ -11,7 +11,7 @@
 
 <div id="content-wrap">
 <div id="main"> <a name="TemplateInfo"></a>
-  <h1>Completed - Tasks</h1>
+  <h1>Invalid - Tasks</h1>
   
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
@@ -31,7 +31,6 @@
 	  <span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
 	  </p><br />
 	<% end %>
-	<center><%= will_paginate @tasks %></center>
 	
 </div>
 
@@ -55,10 +54,10 @@
 	  <ul>
 	 <li><b><%= link_to "Overdue", overdue_url,:method => :get %></b>(<%= @overdue_tasks.length %>)</li>
 	 <li><b><%= link_to "New Task", new_task_url,:method => :get %></b>(<%= @new_tasks.length %>)</li>
-	 <li><b><%= link_to "Invalid Task", invalid_task_url,:method => :get %></b>(<%= @invalid_tasks.length %>)</li>
+	 <li><b><u><%= link_to "Invalid Task", invalid_task_url,:method => :get %></u></b>(<%= @invalid_tasks.length %>)</li>
 	 <% if admin_role %>
 	   <li><b><%= link_to "Resolved Task", resolved_task_url,:method => :get %></b>(<%= @resolved_tasks.length %>)</li>
-	   <li><b><u><%= link_to "Completed Task", done_task_url,:method => :get %></u></b>(<%= @done_tasks.length %>)</li>
+	   <li><b><%= link_to "Completed Task", done_task_url,:method => :get %></b>(<%= @done_tasks.length %>)</li>
 	 <% end %>
 	 </ul>
 	
