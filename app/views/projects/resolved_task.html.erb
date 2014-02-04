@@ -44,10 +44,18 @@
 	<% end %>
 	</ul>
 	
+	<h1>My Task Status</h1>
+	<ul>
+	  <li><b><%= link_to "Pending", pending_task_url,:method => :get %></b>(<%= @pending_tasks.length %>)</li>
+	  <li><b><%= link_to "On going", ongoing_task_url,:method => :get %></b>(<%= @ongoing_tasks.length %>)</li>
+	  <li><b><%= link_to "Done", closed_task_url,:method => :get %></b>(<%= @closed_tasks.length %>)</li>
+	</ul>
+	
 	<h1>Reports</h1>
 	  <ul>
 	 <li><b><%= link_to "Overdue", overdue_url,:method => :get %></b>(<%= @overdue_tasks.length %>)</li>
 	 <li><b><%= link_to "New Task", new_task_url,:method => :get %></b>(<%= @new_tasks.length %>)</li>
+	 <li><b><%= link_to "Invalid Task", invalid_task_url,:method => :get %></b>(<%= @invalid_tasks.length %>)</li>
 	 <% if admin_role %>
 	   <li><b><u><%= link_to "Resolved Task", resolved_task_url,:method => :get %></u></b>(<%= @resolved_tasks.length %>)</li>
 	   <li><b><%= link_to "Completed Task", done_task_url,:method => :get %></b>(<%= @done_tasks.length %>)</li>
