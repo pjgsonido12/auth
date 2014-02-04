@@ -1,6 +1,8 @@
 <div id="content-wrap">
   <div id="sidebar">
-    <%= button_to "Add Project", new_project_url,:method => :get, :class => "button" %>
+	<% if admin_role %>
+      <%= button_to "Add Project", new_project_url,:method => :get, :class => "button" %>
+	<% end %>
   </div>
 	
   <div id="main"> <a name="TemplateInfo"></a>
