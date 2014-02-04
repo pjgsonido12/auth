@@ -25,9 +25,9 @@ Auth::Application.configure do
       :address => 'smtp.gmail.com',
       :port => 587,
       :authentication => :plain,
-      :domain => '10.7.203.241',
+      :domain => 'chronos.ncmmanila.org',
       :user_name => 'preciousjadesonido@gmail.com',
-      :password => 'jadejomar12'
+      :password => 'jadejomar'
     }
   
   # Print deprecation notices to the Rails logger
