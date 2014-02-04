@@ -27,7 +27,7 @@ Auth::Application.configure do
       :authentication => :plain,
       :domain => '10.7.203.241',
       :user_name => 'preciousjadesonido@gmail.com',
-      :password => 'jadejomar12'
+      :password => 'jadejomar'
     }
   
   # Print deprecation notices to the Rails logger
