@@ -1,3 +1,9 @@
+<script type="text/javascript">
+  $j(document).ready(function(){   
+	$j('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+  })
+</script>
+
 <div id="content-wrap">
 <div id="main"> <a name="TemplateInfo"></a>	
 <h1> New Task </h1> 
@@ -37,13 +43,23 @@
   </div>
   <p>
   <div class="field", style="margin-top:-30px;">
-	<%= f.check_box :is_priority %>
+	<%= f.check_box :is_priority, :onclick => "if(this.checked) 
+	                                     { 
+	                                      document.getElementById('task_due_date').disabled = false;
+	                                      
+	                                     }
+	                                     else
+	                                     {
+	                                      document.getElementById('task_due_date').disabled = true;
+	                                      
+	                                     } " %>
 	<b><%= f.label :is_priority %></b>
   </div>
   </p>
   <p>
   <div style="margin-top:-55px;margin-left:125px;">	
-    <b>Due Date : </b>  <%= f.date_select :due_date, :ampm => true, :start_year => 2011, :order => [:month, :day, :year] %>
+    <b>Due Date : </b>  
+	<%= f.text_field :due_date, :class => "datepicker", :value => Date.today, :disabled => true  %>
   </div>
   </p>
   <p>
