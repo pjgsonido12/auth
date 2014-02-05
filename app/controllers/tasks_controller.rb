@@ -133,7 +133,7 @@ class TasksController < ApplicationController
             for person in @people
               UserMailer.updated_task(person, @project, @task).deliver
             end
-            flash[:notice] = "You have successfully updated task information."
+            flash.now[:notice] = "You have successfully updated task information."
             format.html { redirect_to project_task_url }
             format.xml  { head :ok }
           else
