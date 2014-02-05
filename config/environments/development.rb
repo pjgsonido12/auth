@@ -25,7 +25,7 @@ Auth::Application.configure do
       :address => 'smtp.gmail.com',
       :port => 587,
       :authentication => :plain,
-      :domain => '10.7.203.241',
+      :domain => '10.183.134.151',
       :user_name => 'preciousjadesonido@gmail.com',
       :password => 'jadejomar'
     }
