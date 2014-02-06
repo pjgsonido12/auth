@@ -80,6 +80,19 @@ class TasksController < ApplicationController
     end
 
     def create
+      @people = Person.is_active
+      @permissions = Permission.where(:project_id => current_project.id)
+      
+      tasks = current_project.tasks
+      if tasks.length > 0
+        @task_number = tasks.last.task_number + 1
+      else
+        @task_number = 1  
+      end  
+      @projects = Project.is_active
+      @severities = Severity.all
+      @task_types = TaskType.all
+      @media = Medium.all
       @task = Task.new(params[:task])
       if params[:people].nil?
         flash[:notice] = "Please check atleast one person."
@@ -94,7 +107,7 @@ class TasksController < ApplicationController
          flash[:notice] = "You have successfully created new task."
          redirect_to project_tasks_url
        else
-         render :back
+         render "new"
        end
      end
     end    
@@ -108,6 +121,9 @@ class TasksController < ApplicationController
 
     def update_task
       @task = Task.find(params[:id])
+      @severities = Severity.all
+      @people = Person.is_active
+      @task_types = TaskType.all
         respond_to do |format|
          if @task.update_attributes(params[:task])
            flash[:notice] = "You have successfully updated task information."
@@ -122,6 +138,9 @@ class TasksController < ApplicationController
      
      def update
        @task = Task.find(params[:id])
+       @severities = Severity.all
+       @people = Person.is_active
+       @task_types = TaskType.all
        if params[:people].nil? 
          flash[:notice] = "Please check atleast one person."
          redirect_to :back
