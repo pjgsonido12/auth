@@ -79,6 +79,11 @@
   </div>
   </p>
   <p>
+  <div style="margin-top:-58px;margin-left:250px;">
+    <b>via : </b>  <%= f.select :medium_id, options_for_select(@media.collect{ |p| [p.name, p.id] }) %>
+  </div>
+  </p>
+  <p>
   <div class="field", style="margin-top:-30px;">
 	<%= f.label :repository_link %>
 	<%= f.text_field :repository_link %>
