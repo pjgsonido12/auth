@@ -19,15 +19,14 @@ Auth::Application.configure do
   # set delivery method to :smtp, :sendmail or :test
   config.action_mailer.delivery_method = :smtp
   
-
     config.action_mailer.smtp_settings = {
-      :enable_starttls_auto => true,
-      :address => 'smtp.gmail.com',
-      :port => 587,
-      :authentication => :plain,
-      :domain => '10.183.134.151',
-      :user_name => 'preciousjadesonido@gmail.com',
-      :password => 'jadejomar'
+        :domain => '10.183.134.151',
+        :address              => "smtp.gmail.com",
+        :port                 => 587,
+        :authentication       => :plain,
+        :user_name            => "no-reply@ncm.org",
+        :password             => "pr0j3cts3rv3",
+        :enable_starttls_auto => true
     }
   
   # Print deprecation notices to the Rails logger
@@ -47,6 +46,8 @@ Auth::Application.configure do
   config.assets.compress = false
 
   config.serve_static_assets = false
+  
+  config.assets.compile = true
 
   # Expands the lines which load the assets
   #config.assets.debug = true
