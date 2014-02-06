@@ -8,6 +8,8 @@ Task Number : <%= @task.task_number %>
 Task Title : <%= @task.title %> 
 Created by: <%= @task.created_person.name %> 
 
+Owner : <%= @task.assigned_person.name %> 
+Source : <%= @task.source_person.name %> via <%= @task.medium.name %> 
 
-Assigned to: <%= @task.assigned_person.name %> 
-
+Please click link below:
+<%= "http://chronos.ncmmanila.org/projects/#{@project.id}/tasks/#{@task.id}" %>
