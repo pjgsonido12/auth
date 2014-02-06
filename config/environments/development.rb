@@ -20,15 +20,15 @@ Auth::Application.configure do
   config.action_mailer.delivery_method = :smtp
   
 
-    config.action_mailer.smtp_settings = {
-      :enable_starttls_auto => true,
-      :address => 'smtp.gmail.com',
-      :port => 587,
-      :authentication => :plain,
+  config.action_mailer.smtp_settings = {
       :domain => '10.183.134.151',
-      :user_name => 'preciousjadesonido@gmail.com',
-      :password => 'jadejomar'
-    }
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :authentication       => :plain,
+      :user_name            => "no-reply@ncm.org",
+      :password             => "pr0j3cts3rv3",
+      :enable_starttls_auto => true
+  }
   
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
