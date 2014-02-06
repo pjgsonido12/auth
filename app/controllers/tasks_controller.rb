@@ -117,6 +117,7 @@ class TasksController < ApplicationController
        @severities = Severity.all
        @people = Person.is_active
        @task_types = TaskType.all
+       @media = Medium.all
     end
 
     def update_task
@@ -124,6 +125,7 @@ class TasksController < ApplicationController
       @severities = Severity.all
       @people = Person.is_active
       @task_types = TaskType.all
+      @media = Medium.all
         respond_to do |format|
          if @task.update_attributes(params[:task])
            flash[:notice] = "You have successfully updated task information."
@@ -141,6 +143,7 @@ class TasksController < ApplicationController
        @severities = Severity.all
        @people = Person.is_active
        @task_types = TaskType.all
+       @media = Medium.all
        if params[:people].nil? 
          flash[:notice] = "Please check atleast one person."
          redirect_to :back
