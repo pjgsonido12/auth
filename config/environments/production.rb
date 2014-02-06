@@ -45,11 +45,11 @@ Auth::Application.configure do
   # Do not compress assets
   config.assets.compress = false
 
-  config.serve_static_assets = true
+  config.serve_static_assets = false
   
   config.assets.compile = true
 
   # Expands the lines which load the assets
-  #config.assets.debug = true
+  config.assets.debug = true
   config.logger = Logger.new("/var/www/apps/chronos/log/production.log")
 end
