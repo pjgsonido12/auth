@@ -13,4 +13,5 @@ class Task < ActiveRecord::Base
     
   scope :is_active, where(:is_active => true) 
   
+  validates_presence_of :title, :due_date
 end
