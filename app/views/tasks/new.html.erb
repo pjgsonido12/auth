@@ -1,6 +1,19 @@
 <script type="text/javascript">
   $j(document).ready(function(){   
 	$j('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+	
+	$j("#send_to_one").hide();
+	$j("#send_to_two").hide();
+
+    $j(task_is_priority).change(function(){  
+            if(this.checked){
+              $j("#send_to_one").show();
+			  $j("#send_to_two").show();
+            }else{
+              $j("#send_to_one").hide();
+			  $j("#send_to_two").hide();
+            }
+    });
   })
 </script>
 
@@ -43,24 +56,15 @@
   </div>
   <p>
   <div class="field", style="margin-top:-30px;">
-	<%= f.check_box :is_priority, :onclick => "if(this.checked) 
-	                                     { 
-	                                      document.getElementById('task_due_date').disabled = false;
-	                                      
-	                                     }
-	                                     else
-	                                     {
-	                                      document.getElementById('task_due_date').disabled = true;
-	                                      
-	                                     } " %>
+	<%= f.check_box :is_priority %>
 	<b><%= f.label :is_priority %></b>
   </div>
-  </p>
-  <p>
-  <div style="margin-top:-55px;margin-left:125px;">	
-    <b>Due Date : </b>  
-	<%= f.text_field :due_date, :class => "datepicker", :value => Date.today, :disabled => true  %>
-  </div>
+  </p>	 
+  <p>	 
+  <div class="field", style="margin-top:-30px;">	
+	<%= f.label :due_date , :id =>"send_to_one"%>   
+	<%= f.text_field :due_date, :class => "datepicker", :value => Date.today, :id =>"send_to_two"  %>
+  </div>          
   </p>
   <p>
   <div class="field", style="margin-top:-30px;">
