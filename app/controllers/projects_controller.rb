@@ -72,6 +72,7 @@ class ProjectsController < ApplicationController
   
   def new_task
     @tasks = Task.where(:task_status_id => 1, :is_active => 1)
+    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
     @projects = current_user.projects.is_active
     
     @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
