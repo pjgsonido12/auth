@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :authenticate_user!
+  
   # POST /comments
   def create
     task = Task.find(params[:task_id])
