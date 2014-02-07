@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+   before_filter :authenticate_user!
    before_filter :null_project_session
     
     def index
