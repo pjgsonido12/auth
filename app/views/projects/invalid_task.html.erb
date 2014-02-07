@@ -15,7 +15,7 @@
   
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
-	  <% task_count = Comment.where(:task_id => task.id).length %>
+	  <% task_count = Comment.where(:task_id => task.id, :is_active => 1).length %>
 	  <% if current_user.id == task.assigned_to %>
 	    <p class="blockquote_you" align="justify">
 	  <% else %>
@@ -31,7 +31,7 @@
 	  <span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
 	  </p><br />
 	<% end %>
-	
+	<center><%= will_paginate @tasks %></center>
 </div>
 
 <div id="sidebar">

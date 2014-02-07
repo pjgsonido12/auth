@@ -15,7 +15,7 @@
   
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
-	  <% task_count = Comment.where(:task_id => task.id).length %>
+	  <% task_count = Comment.where(:task_id => task.id, :is_active => 1).length %>
 	  <p class="blockquote" align="justify">
 	  <strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %></strong> (<%= task.task_status.description %> <% if current_user.id == task.assigned_to %><b>You</b><% else %><%= task.assigned_person.firstname %><% end %>) <%= truncate(task.description, :length => 250, :omission=>("...")) %></p>
 	  <p style="margin-left:20px;margin-top:-16px;"> <%= task.source_person.name %> via <%= task.medium.name %></p>

@@ -15,7 +15,7 @@
   
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
-	  <% task_count = Comment.where(:task_id => task.id).length %>	
+	  <% task_count = Comment.where(:task_id => task.id, :is_active => 1).length %>	
 	  <% if current_user.id == task.assigned_to %>
 	    <p class="blockquote_you" align="justify">
 	  <% else %>
