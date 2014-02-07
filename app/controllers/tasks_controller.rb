@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_filter :authenticate_user!
+  
     def index
       @tasks = current_project.tasks.where(['is_active = ?', 1])
       @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
