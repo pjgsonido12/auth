@@ -18,6 +18,12 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= Person.find(session[:user_id]) if session[:user_id]
   end
+  
+  def authenticate_user!
+    unless current_user
+      redirect_to root_url
+    end
+  end
 
   def current_project
     project_id = params[:project_id] || params[:id]
