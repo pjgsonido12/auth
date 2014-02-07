@@ -1,4 +1,6 @@
 class RolesController < ApplicationController
+  before_filter :authenticate_user!
+  
   def index
     @project_role = ProjectRole.new
     #@people = Person.is_active
