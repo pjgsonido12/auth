@@ -35,7 +35,7 @@
   </div></p>
 	<%= f.hidden_field :createdby, :value => current_user.id %>
 	<%= f.hidden_field :is_active, :value => true %>
-  <div class="submit"><%= f.submit%></div>
+  <div class="submit"><%= submit_tag "Create Project", :class => "button" %></div>
 <% end %>
 </div>
 </div>
