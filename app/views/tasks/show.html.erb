@@ -81,7 +81,7 @@ $j(document).ready(function() {
 		  <%= f.hidden_field :created_by, :value => current_user.id %>
 		  <%= f.hidden_field :is_active, :value => true %>
 		<% if current_role != 'Spectator' %>
-		  <%= f.submit("Post") %>
+		  <%= submit_tag "Post", :class => "button" %>
 		
 		<% end %>
 		  <% end %> 
