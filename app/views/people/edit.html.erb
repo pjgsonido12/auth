@@ -62,13 +62,7 @@
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
-	<%= f.label :password_confirmation %>
-	<%= f.password_field :password_confirmation, :value => @person.password %>
-  </div>
-  </p>
-  <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field", style="margin-top:-20px;">
     <% if admin_role %>
 	<%= f.check_box :is_system_admin %>
 	<b><%= f.label :is_system_admin %></b>
