@@ -64,9 +64,8 @@ $j(document).ready(function() {
 	             <%= button_to("x", remove_project_task_url(:id => comment.id, :task_id => comment.task_id), {:onclick => "return confirm('Are you sure you want to remove this comment?')", :method => :put, :class => "button" }) %>	
 	          <% end %></div>
 		  <blockquote>
-          <p>		    			
+          <p>	 			
 			<%= raw(comment.comment) %>
-
 			<small><div id="smallcheck", style="text-align:right;margin-right:5px;">
 			<b><%= comment.created_person.email %></b>   
 		    <%= comment.created_at.strftime("%a, %d %B %Y at %I:%M%p") %></small></div>  
@@ -80,11 +79,12 @@ $j(document).ready(function() {
 		  <%= f.text_area(:comment, :id => "_Text" ) %><br /> 
 		  <%= f.hidden_field :created_by, :value => current_user.id %>
 		  <%= f.hidden_field :is_active, :value => true %>
-		<% if current_role != 'Spectator' %>
-		  <%= submit_tag "Post", :class => "button" %>
 		
-		<% end %>
+		<% if current_role != 'Spectator' %>
+		  <a id="read"><%= submit_tag "Post", :class => "button" %></a>		
+		<% end %>		
 		  <% end %> 
+		
 </div>
 
 <div id="sidebar">
@@ -108,6 +108,12 @@ $j(document).ready(function() {
 	<%= f.hidden_field :project_id, :value => current_project.id %>
 	<%= f.hidden_field :updated_by, :value => current_user.id %>
   </div>
+
+	<h1>Project Name</h1>
+	<ul class="sidemenu">
+	 <% @task_count = Task.where(:project_id => current_project.id, :assigned_to => current_user.id).length %>	
+	 <li><%= link_to current_project.name, project_tasks_url(current_project) %>(<%= @task_count %>)</li>
+	</ul>
 
   <h1> Assigned Task to: </h1>
   <p>
