@@ -20,7 +20,7 @@
 	  <strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %></strong> (<%= task.task_status.description %> <% if current_user.id == task.assigned_to %><b>You</b><% else %><%= task.assigned_person.firstname %><% end %>) <%= truncate(task.description, :length => 250, :omission=>("...")) %></p>
 	  <p style="margin-left:20px;margin-top:-16px;"> <%= task.source_person.name %> via <%= task.medium.name %></p>
 	  <p class="post-footer align-right" style="margin-top:-30px;">
-	  <span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
+	  <span class="readmore"><%= task.project.name %></span><a class="comments" href="http://<%= request.env['HTTP_HOST'] %>/projects/<%= current_proj.id %>/tasks/<%= task.id %>#read">Comments(<%= task_count %>)</a> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
 	  </p><br />
 	<% end %>
 	<center><%= will_paginate @tasks %></center>
