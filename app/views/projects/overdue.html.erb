@@ -28,7 +28,7 @@
 	  <% else %>
 		<p class="post-footer align-right" style="margin-top:-30px;">
 	  <% end %>	  
-	  <span class="readmore"><%= task.project.name %></span><span class="comments">Comments(<%= task_count %>)</span> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
+	  <span class="readmore"><%= task.project.name %></span><a class="comments" href="http://<%= request.env['HTTP_HOST'] %>/projects/<%= current_proj.id %>/tasks/<%= task.id %>#read">Comments(<%= task_count %>)</a> <span class="date"><% if task.is_priority == 1 %><%= task.due_date.strftime("%d %B %Y") %> <% else %> <%= task.created_at.strftime("%d %B %Y") %><%end%></span> 
 	  </p><br />
 	<% end %>
 	<center><%= will_paginate @tasks %></center>
