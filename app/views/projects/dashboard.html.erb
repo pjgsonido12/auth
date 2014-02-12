@@ -5,9 +5,7 @@
 	<% for task in @tasks %>
 	  <% current_proj = Project.where(:id => task.project_id).first %>
 	  <% task_count = Comment.where(:task_id => task.id, :is_active => 1).length %>
-	  <% if task.task_status.name == "Assigned" %>
-	    <p class="blockquote_assign" align="justify">
-	  <% elsif task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
+	  <% if task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
 		<p class="blockquote_reassign" align="justify">
 	  <% else %>
 	    <p class="blockquote" align="justify">
