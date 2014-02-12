@@ -1,0 +1,6 @@
+A new comment added by <%= @comment.created_person.firstname %>.
+<br />
+<%= raw(@comment.comment) %>	
+<br />
+Please click link below:<br />
+<%= "http://chronos.ncmmanila.org/projects/#{@project.id}/tasks/#{@task.id}#read" %>
