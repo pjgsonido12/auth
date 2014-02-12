@@ -14,9 +14,8 @@
 	  <% end %>
 		<strong><%= link_to task.title , project_task_url(:project_id => current_proj.id, :id => task.id) %> (<%= task.task_status.name %>)</strong> <%= truncate(task.description, :length => 250, :omission=>("...")) %></p>
 	  <p style="margin-left:20px;margin-top:-16px;"> <%= task.source_person.name %> via <%= task.medium.name %></p>
-	  <% if task.task_status.name == "Assigned" %>
-		<p class="post-footer_assign align-right" style="margin-top:-30px;">
-	  <% elsif task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
+
+	  <% if task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
 	    <p class="post-footer_reassign align-right" style="margin-top:-30px;">
 	  <% else %>
 		<p class="post-footer align-right" style="margin-top:-30px;">
