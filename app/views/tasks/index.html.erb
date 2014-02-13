@@ -26,9 +26,7 @@
 </div>
 
 <div id="sidebar">
-  <% if current_role == 'Administrator' || admin_role %>
     <%= button_to "Add Task", new_project_task_url,:method => :get, :class => "button" %>
-  <% end %>
 
   <h1> Show tasks by: </h1>
   <ul class="sidemenu"> 
