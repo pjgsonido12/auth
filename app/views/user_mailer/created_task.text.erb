@@ -1,6 +1,6 @@
 Hi <%= @person.firstname %>, 
 
-A new task was successfully created by <%= @task.created_person.name %>. This was requested by <%= @task.source_person.name %> via <%= @task.medium.name %> <% if @task.is_priority == 1 %>(URGENT)<% end %>.
+A new task was successfully created by <%= @task.created_person.firstname %>. This was requested by <%= @task.source_person.firstname %> via <%= @task.medium.name %><% if @task.is_priority == 1 %>(URGENT)<% end %>.
  
 TASK DETAILS:
 Project Name : <%= @project.name %> 
