@@ -80,17 +80,13 @@ $j(document).ready(function() {
 		  <%= f.hidden_field :created_by, :value => current_user.id %>
 		  <%= f.hidden_field :is_active, :value => true %>
 		
-		<% if current_role != 'Spectator' %>
-		  <a id="read"><%= submit_tag "Post", :class => "button" %></a>		
-		<% end %>		
+		  <a id="read"><%= submit_tag "Post", :class => "button" %></a>				
 		  <% end %> 
 		
 </div>
 
 <div id="sidebar">
-<% if current_role == 'Administrator' || admin_role || ( @task.assigned_to == current_user.id && (@task.task_status.name != 'Resolved' && @task.task_status.name != 'Closed' && @task.task_status.name != 'Invalid' && @task.task_status.name != 'New') )   %>
     <%= button_to "Edit Task", edit_project_task_url(:project_id => current_project.id, :id => @task.id), :method => :get, :class => "button" %>
-
   
 <%= form_for @task, :url => project_task_url(:id => @task.id),:html => {:method => :put,:class => "person"} do |f| %>
   <% if @task.errors.any? %>
@@ -157,7 +153,6 @@ $j(document).ready(function() {
    <br>
     <% end %>
     </p>
-<% end %>
 <% end %>
 </div>
 </div>
