@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     task = Task.find(params[:task_id])
     @comment = task.comments.build(params[:comment])            
     @task = task
-    @people = Person.where(['id = ? OR id = ? OR id = ?', current_user.id, 30, task.assigned_to])
+    @people = Person.where(['id = ? OR id = ?', current_user.id, task.assigned_to])
     @project = Project.where(:id => current_project.id).last  
 
     if @comment.save
