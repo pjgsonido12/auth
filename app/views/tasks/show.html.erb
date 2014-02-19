@@ -107,7 +107,7 @@ $j(document).ready(function() {
 
 	<h1>Project Name</h1>
 	<ul class="sidemenu">
-	 <% @task_count = Task.where(:project_id => current_project.id, :assigned_to => current_user.id).length %>	
+	 <% @task_count = Task.where(:project_id => current_project.id, :assigned_to => current_user.id, :is_active => 1).length %>	
 	 <li><%= link_to current_project.name, project_tasks_url(current_project) %>(<%= @task_count %>)</li>
 	</ul>
 
