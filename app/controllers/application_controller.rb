@@ -24,6 +24,13 @@ class ApplicationController < ActionController::Base
       redirect_to root_url
     end
   end
+  
+  def authenticate_project!
+    unless current_project.is_active
+      flash[:notice] = "This project is not active."
+      redirect_to dashboard_url
+    end
+  end
 
   def current_project
     project_id = params[:project_id] || params[:id]
