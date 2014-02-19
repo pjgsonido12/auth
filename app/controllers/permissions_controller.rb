@@ -1,6 +1,6 @@
 class PermissionsController < ApplicationController
   before_filter :authenticate_user!
-  
+  before_filter :authenticate_project!
   def index
     @permission = Permission.new
     @people = Person.is_active
