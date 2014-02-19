@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authenticate_project!
   
     def index
       @tasks = current_project.tasks.where(['is_active = ?', 1])
