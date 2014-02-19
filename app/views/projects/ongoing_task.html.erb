@@ -31,7 +31,7 @@
 	<h1>My Projects</h1>
 	<ul class="sidemenu">
 	<% for project in @projects %>
-	 <% @task_count = Task.where(:project_id => project.id, :assigned_to => current_user.id).length %>	
+	 <% @task_count = Task.where(:project_id => project.id, :assigned_to => current_user.id, :is_active => 1).length %>	
 	 <li><%= link_to project.name, project_tasks_url(project) %>(<%= @task_count %>)</li>
 	<% end %>
 	</ul>
