@@ -96,23 +96,14 @@ class TasksController < ApplicationController
       @severities = Severity.all
       @task_types = TaskType.all
       @media = Medium.all
-      @task = Task.new(params[:task])
-      if params[:people].nil?
-        flash[:notice] = "Please check atleast one person."
-        redirect_to :back
-      else  
-        @people = Person.find(params[:people])
-        @project = Project.where(:id => current_project.id).last        
-       if @task.save
-         for person in @people
-           UserMailer.created_task(person, @project, @task).deliver
-         end
-         flash[:notice] = "You have successfully created new task."
-         redirect_to project_tasks_url
-       else
-         render "new"
-       end
-     end
+      @task = Task.new(params[:task]) 
+      @project = Project.where(:id => current_project.id).last        
+      if @task.save
+        flash[:notice] = "You have successfully created new task."
+        redirect_to project_tasks_url
+      else
+        render "new"
+      end
     end    
     
     def edit
