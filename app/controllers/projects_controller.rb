@@ -11,17 +11,17 @@ class ProjectsController < ApplicationController
   end
   
   def invalid_task
-    @tasks = Task.where(:task_status_id => 8, :is_active => 1) 
+    @tasks = Task.where(:task_status_id => 8, :is_active => 1).order("due_date DESC") 
     @projects = current_user.projects.is_active
   end
   
   def closed_task
-    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC") 
+    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("due_date DESC") 
     @projects = current_user.projects.is_active
   end
   
   def ongoing_task
-    @tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
+    @tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("due_date DESC")
     @projects = current_user.projects.is_active
   end
   
@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
   end
   
   def new_task
-    @tasks = Task.where(:task_status_id => 1, :is_active => 1).order("created_at DESC")
+    @tasks = Task.where(:task_status_id => 1, :is_active => 1).order("due_date DESC")
     @projects = current_user.projects.is_active
   end
   
