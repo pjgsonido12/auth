@@ -42,16 +42,13 @@ $j(document).ready(function() {
 	  <p style="margin-top:-20px;"><strong>Created by:</strong> <%= @task.created_person.name %></p>
       <p style="margin-top:-20px;"><strong>Created at:</strong> <%= @task.created_at.strftime("%d %B %Y") %></p>
       <p style="margin-top:-20px;"><strong>Assigned to:</strong> <%= @task.assigned_person.name unless @task.task_status.name == "New" %></p>
-	  <p style="margin-top:-90px;margin-left:350px;"><strong>RE-ASSIGNED COUNT:</strong> <% if @task.reassigned_count.nil? %> N/A <% else %><%= @task.reassigned_count %><%end%></p>
-	  <p style="margin-top:-20px;margin-left:350px;"><strong>RE-OPEN COUNT:</strong><% if @task.reopen_count.nil?%> N/A <%else%> <%= @task.reopen_count %><%end%></p>
 	  <% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed'%>
-	    <p style="margin-top:-20px;margin-left:350px;"><strong>Date Resolved:</strong> <%= @task.date_resolved.strftime("%d %B %Y") %></p>
+	    <p style="margin-top:-60px;margin-left:350px;"><strong>Date Resolved:</strong> <%= @task.date_resolved.strftime("%d %B %Y") %></p>
 	  <% end %>
       <% if @task.task_status.name == 'Closed'%>
         <p style="margin-top:-20px;margin-left:350px;"><strong>Date Completed:</strong> <%= @task.date_completed.strftime("%d %B %Y") %></p>
       <% end %> </br>    
-      <p style="margin-top:10px;"><code><strong>Repository Link:</strong> <%= @task.repository_link %></code></p><br />
-
+      <p style="margin-top:-10px;"><code><strong>Repository Link:</strong> <%= @task.repository_link %></code></p><br />
        <p style="margin-top:-20px;">	      
 	     <strong>Description: </strong><%= @task.task_type.name %>(<%= @task.severity.name %>)
 		 <br></br> <%= h(@task.description).gsub(/\n/, '<br />').html_safe %>
