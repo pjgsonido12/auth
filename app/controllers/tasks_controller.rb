@@ -18,7 +18,7 @@ class TasksController < ApplicationController
     end
     
     def my_task
-      @tasks = current_project.tasks.where(['is_active = ? AND task_status_id <> ? AND assigned_to = ?', 1, 3, current_user.id])
+      @tasks = current_project.tasks.where(['is_active = ? AND task_status_id <> ? AND task_status_id <> ? AND assigned_to = ?', 1, 3, 1, current_user.id])
       @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
             
