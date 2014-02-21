@@ -85,22 +85,6 @@
   </div>
   <div class="submit"><%= submit_tag "Create Task", :class => "button" %></div>
 </div>
-
-<div id="sidebar">
-  <h1> Person to notify: </h1>
-    <p>
-	  <% check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'people')" }) %>
-    <% @permissions.each do |permission| %>
-	  <% if permission.person_id == current_user.id || permission.person_id == 30 %>	
-      <%= check_box_tag("people[]",permission.person.id,true,{ :class => "people", :onclick => "toggleMaster(this,'select_all')" }) %>
-	  <% else %>
-		<%= check_box_tag("people[]",permission.person.id,false,{ :class => "people", :onclick => "toggleMaster(this,'select_all')" }) %>
-	  <% end %>	
-	&nbsp;<span><%= permission.person.name %>
-   <br>
-    <% end %>
-    </p>
-</div>
 <% end %>
 
 </div>
