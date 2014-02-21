@@ -11,139 +11,48 @@ class ProjectsController < ApplicationController
   end
   
   def invalid_task
-    @tasks = Task.where(:task_status_id => 8, :is_active => 1)
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
+    @tasks = Task.where(:task_status_id => 8, :is_active => 1) 
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def closed_task
-    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
+    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC") 
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def ongoing_task
     @tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def pending_task
-    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
+    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("due_date DESC") 
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def new_task
-    @tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
+    @tasks = Task.where(:task_status_id => 1, :is_active => 1).order("created_at DESC")
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def resolved_task
-    @tasks = Task.where(:task_status_id => 4, :is_active => 1).order("created_at DESC")
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
+    @tasks = Task.where(:task_status_id => 4, :is_active => 1).order("due_date DESC") 
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def done_task
-    @tasks = Task.where(:task_status_id => 3, :is_active => 1).order("created_at DESC")
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
+    @tasks = Task.where(:task_status_id => 3, :is_active => 1).order("due_date DESC")
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def dashboard  
-    @tasks = Task.where(['is_active = ? AND task_status_id <> ? AND assigned_to = ?', 1, 3, current_user]).order("created_at DESC")
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
+    @tasks = Task.where(['is_active = ? AND task_status_id <> ? AND task_status_id <> ? AND task_status_id <> ? AND assigned_to = ?', 1, 1, 8, 3, current_user]).order("due_date DESC") 
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def overdue
-    # ALL OVERDUE TASK
-    @tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)  
+    @tasks = Task.where(['is_active = ? AND task_status_id <> ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("due_date DESC")
     @projects = current_user.projects.is_active
-    
-    @overdue_tasks = Task.where(['is_active = ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("created_at DESC")
-    @new_tasks = Task.where(:task_status_id => 1, :is_active => 1)
-    @resolved_tasks = Task.where(:task_status_id => 4, :is_active => 1)
-    @done_tasks = Task.where(:task_status_id => 3, :is_active => 1)
-    @pending_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("created_at DESC")
-    @ongoing_tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("created_at DESC")
-    @closed_tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("created_at DESC")
-    @invalid_tasks = Task.where(:task_status_id => 8, :is_active => 1)
   end
   
   def new
