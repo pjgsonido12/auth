@@ -6,14 +6,8 @@
 		<br />
 	  <% for task in @tasks %>
 	    <p class="post-footer align-left">
-	    <b><%= link_to "##{task.task_number} " + " - " + task.title, project_task_url(:project_id => current_project.id, :id => task.id) %></b>
-	    (<%= task.task_status.description %>   
-		<% if current_user.id == task.assigned_to %>
-			<b>You</b>)
-		<% else %>
-			<%= task.assigned_person.firstname %>)
-		<% end %><br/>
-		<%= "created at " + task.created_at.strftime("%d %B %Y") + " by " + task.created_person.name   %>
+	    <b><%= link_to "##{task.task_number} " + " - " + truncate(task.title, :length => 80, :omission=>("...")), project_task_url(:project_id => current_project.id, :id => task.id) %></b>
+	    (<%= task.task_status.name %>)
 	    </p>
 		<br />
 	  <% end %>
