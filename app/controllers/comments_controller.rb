@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       for person in @people
-        UserMailer.comment_task(person, @project, @task, @comment).deliver
+        #UserMailer.comment_task(person, @project, @task, @comment).deliver
        end
       flash[:notice] = "You have successfully posted your comment."
        redirect_to project_task_url(current_project,task)
