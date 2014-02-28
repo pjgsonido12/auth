@@ -147,7 +147,7 @@ class TasksController < ApplicationController
          respond_to do |format|
           if @task.update_attributes(params[:task])
             for person in @people
-              UserMailer.updated_task(person, @project, @task).deliver
+              #UserMailer.updated_task(person, @project, @task).deliver
             end
             flash[:notice] = "You have successfully updated task information."
             format.html { redirect_to project_task_url }
