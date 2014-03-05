@@ -46,7 +46,8 @@ class ProjectsController < ApplicationController
   end
   
   def dashboard  
-    @tasks = Task.where(['is_active = ? AND task_status_id <> ? AND task_status_id <> ? AND task_status_id <> ? AND assigned_to = ?', 1, 1, 8, 3, current_user]).order("due_date DESC") 
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,4,5,6,7]} }, :order => "tasks.due_date DESC")    
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
