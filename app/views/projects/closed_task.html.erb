@@ -13,25 +13,19 @@
 <div id="main"> <a name="TemplateInfo"></a>
   <h1>Done - Tasks</h1>
   
-<% for project in @projects  %>
-<% if @tasks.where(:project_id => project.id).length > 0 %>
-  <h3><%= project.name %></h3>
-<% end %>
-<% for task in @tasks %>
-	<% if task.project_id == project.id %>
-	  <% current_proj = Project.where(:id => task.project_id).first %>
-	  <% task_count = Comment.where(:task_id => task.id, :is_active => 1).length %>
-	  <p style="margin-left:20px;margin-top:-16px;"> <strong><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 30, :omission=>("...")) , project_task_url(:project_id => current_proj.id, :id => task.id) %></strong> (<%= task.task_status.name %>)</p>
+<% @grouped_tasks.each do |project, tasks| %>
+	<h3><%= project.name %></h3>
+	<% tasks.each do |task| %>
+	  <p style="margin-left:20px;margin-top:-16px;"> <strong><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 30, :omission=>("...")) , project_task_url(:project_id => task.project_id, :id => task.id) %></strong> (<%= task.task_status.name %>)</p>
 
 	  <% if task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
 	    <p class="post-footer_reassign align-right" style="margin-top:-30px;">
 	  <% else %>
 		<p class="post-footer align-right" style="margin-top:-30px;">
 	  <% end %>
-	  <a class="comments" href="http://<%= request.env['HTTP_HOST'] %>/projects/<%= current_proj.id %>/tasks/<%= task.id %>#read">Comments(<%= task_count %>)</a> <span class="date"><%= task.due_date.strftime("%d %B %Y") %> </span> 
+	  <a class="comments" href="http://<%= request.env['HTTP_HOST'] %>/projects/<%= task.project_id %>/tasks/<%= task.id %>#read">Comments(<%= task.comments.is_active.length %>)</a> <span class="date"><%= task.due_date.strftime("%d %B %Y") %> </span> 
 	  </p><br />
 	<% end %>
-<% end %>
 <% end %>	
 </div>
 
