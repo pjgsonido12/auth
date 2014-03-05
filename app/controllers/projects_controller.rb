@@ -11,37 +11,44 @@ class ProjectsController < ApplicationController
   end
   
   def invalid_task
-    @tasks = Task.where(:task_status_id => 8, :is_active => 1).order("due_date DESC") 
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 8} }, :order => "tasks.due_date DESC") 
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
   def closed_task
-    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 4, 3, current_user]).order("due_date DESC") 
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [4,3]} }, :order => "tasks.due_date DESC")    
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
   def ongoing_task
-    @tasks = Task.where(['is_active = ? AND task_status_id = ? AND assigned_to = ?', 1, 7, current_user]).order("due_date DESC")
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => 7} }, :order => "tasks.due_date DESC")    
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
   def pending_task
-    @tasks = Task.where(['is_active = ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ?) AND assigned_to = ?', 1, 2, 5, 6, current_user]).order("due_date DESC") 
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,5,6]} }, :order => "tasks.due_date DESC")    
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
   def new_task
-    @tasks = Task.where(:task_status_id => 1, :is_active => 1).order("due_date DESC")
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 1} }, :order => "tasks.due_date DESC") 
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
   def resolved_task
-    @tasks = Task.where(:task_status_id => 4, :is_active => 1).order("due_date DESC") 
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 4} }, :order => "tasks.due_date DESC") 
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
   def done_task
-    @tasks = Task.where(:task_status_id => 3, :is_active => 1).order("due_date DESC")
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 3} }, :order => "tasks.due_date DESC") 
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
@@ -52,7 +59,8 @@ class ProjectsController < ApplicationController
   end
   
   def overdue
-    @tasks = Task.where(['is_active = ? AND task_status_id <> ? AND is_priority = ? AND (((date(date_resolved) - due_date) > ? AND (task_status_id = ? OR task_status_id = ?)) OR (due_date < ? AND (task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ? OR task_status_id = ?)))', 1, 1, 1, 0, 3, 4, Date.today, 1, 2, 5, 6, 7]).order("due_date DESC")
+    @tasks = Task.find(:all, :joins => :project, :conditions => ['projects.is_active = ? AND tasks.is_active = ? AND tasks.task_status_id <> ? AND tasks.is_priority = ? AND (((date(tasks.date_resolved) - tasks.due_date) > ? AND (tasks.task_status_id IN (?))) OR (tasks.due_date < ? AND (tasks.task_status_id IN (?))))', 1, 1, 1, 1, 0, [3, 4], Date.today, [1, 2, 5, 6, 7]], :order => "tasks.due_date DESC")   
+    @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
   
