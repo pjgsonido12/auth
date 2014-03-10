@@ -12,21 +12,7 @@
 <div id="content-wrap">
 <div id="main"> <a name="TemplateInfo"></a>
   <h1>Done - Tasks</h1>
-  
-<% @grouped_tasks.each do |project, tasks| %>
-	<h3><%= project.name %></h3>
-	<% tasks.each do |task| %>
-	  <p style="margin-left:20px;margin-top:-16px;"> <strong><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 30, :omission=>("...")) , project_task_url(:project_id => task.project_id, :id => task.id) %></strong> (<%= task.task_status.name %>)</p>
-
-	  <% if task.task_status.name == "Re-Assigned" || task.task_status.name == "Re-Open" %>
-	    <p class="post-footer_reassign align-right" style="margin-top:-30px;">
-	  <% else %>
-		<p class="post-footer align-right" style="margin-top:-30px;">
-	  <% end %>
-	  <a class="comments" href="http://<%= request.env['HTTP_HOST'] %>/projects/<%= task.project_id %>/tasks/<%= task.id %>#read">Comments(<%= task.comments.is_active.length %>)</a> <span class="date"><%= task.due_date.strftime("%d %B %Y") %> </span> 
-	  </p><br />
-	<% end %>
-<% end %>	
+  <%= render :partial => "projects/non_task_field" %>	
 </div>
 
 <div id="sidebar">
