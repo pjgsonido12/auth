@@ -53,11 +53,8 @@ class ProjectsController < ApplicationController
   end
   
   def dashboard  
-    if current_user.email = "acalderon@nazarene.org"
-      @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => [2,5,6,7]} }, :order => "tasks.due_date DESC")    
-    else
-      @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,4,5,6,7]} }, :order => "tasks.due_date DESC") 
-    end
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => [2,5,6,7]} }, :order => "tasks.due_date DESC")    
+    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,4,5,6,7]} }, :order => "tasks.due_date DESC") 
     @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
