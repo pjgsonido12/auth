@@ -1,19 +1,25 @@
 <div id="content-wrap">
-	<div id="main"> <a name="TemplateInfo"></a>	
-	<h1> <%= current_project.name %> - My Task </h1>
+<div id="main"> <a name="TemplateInfo"></a>	
+<h1> <%= current_project.name %> - Tasks </h1>
 
-
-		<br />
-	  <% for task in @tasks %>
-	    <p class="post-footer align-left">
-	    <b><%= link_to "##{task.task_number} " + " - " + truncate(task.title, :length => 80, :omission=>("...")), project_task_url(:project_id => current_project.id, :id => task.id) %></b>
-	    (<%= task.task_status.name %>)
-	    </p>
-		<br />
+<% @grouped_tasks.each do |task_status, tasks| %>
+	<h3><%= task_status.name %></h3>
+	<% tasks.each do |task| %>
+	
+	  <p style="margin-left:20px;margin-top:-16px;"> <strong><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 35, :omission=>("...")) , project_task_url(:project_id =>  task.project_id, :id => task.id) %></strong></p>
+	  <p class="post-footer align-right" style="margin-top:-30px;">
+	  <span class="date"><%= task.due_date.strftime("%d %B %Y") %> </span>
+	  <% if task.task_status.name == "Closed" %>
+		<span class="date"><%= task.date_completed.strftime("%d %B %Y") %> </span> 
+	  <% elsif task.task_status.name == "Resolved" %>
+		<span class="date"><%= task.date_resolved.strftime("%d %B %Y") %> </span>
+	  <% else %>
+	  	<span class="date"><%= task.due_date.strftime("%d %B %Y") %> </span> 
 	  <% end %>
-  	  <center><%= will_paginate @tasks %></center>
-
-	</div>
+	  </p><br />
+  <% end %>
+<% end %>
+</div>
 
 <div id="sidebar">
   <% if current_role == 'Administrator' || admin_role %>
