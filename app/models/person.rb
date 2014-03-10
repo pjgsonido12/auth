@@ -35,6 +35,11 @@ class Person < ActiveRecord::Base
     firstname + " " + lastname
   end
   
+  def nickname
+    @splited_name ||= firstname.split # @splited_name would cache the result so that no need to split the name every time
+    @splited_name.first
+  end
+  
   #instance methods
   
   def accessible_project_ids
