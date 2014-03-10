@@ -3,22 +3,26 @@ class TasksController < ApplicationController
   before_filter :authenticate_project!
   
     def index
-      @tasks = current_project.tasks.where(['is_active = ?', 1])
+      @tasks = current_project.tasks.where(['is_active = ?', 1]).order("task_status_id ASC")
+      @grouped_tasks = @tasks.group_by &:task_status
       @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def done_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 3])
+      @grouped_tasks = @tasks.group_by &:task_status
       @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def resolved_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 4])
+      @grouped_tasks = @tasks.group_by &:task_status
       @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def my_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id <> ? AND task_status_id <> ? AND assigned_to = ?', 1, 3, 1, current_user.id])
+      @grouped_tasks = @tasks.group_by &:task_status
       @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
             
