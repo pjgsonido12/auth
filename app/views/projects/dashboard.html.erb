@@ -19,19 +19,21 @@
 </div>
 
   <div id="sidebar">
-	<h1>My Projects</h1>
+	<% if current_user.permissions.length > 0 %>
+	<h1>My Projects</h1>	
 	<ul class="sidemenu">
 	<% for project in @projects %>
 	 <li><%= link_to project.name, project_tasks_url(project) %></li>
 	<% end %>
 	</ul>
-	
+		
 	<h1>My Task Status</h1>
 	<ul>
 	  <li><b><%= link_to "Pending", pending_task_url,:method => :get %></b></li>
 	  <li><b><%= link_to "On going", ongoing_task_url,:method => :get %></b></li>
 	  <li><b><%= link_to "Done", closed_task_url,:method => :get %></b></li>
 	</ul>
+	<% end %>
 	
 	<h1>Reports</h1>
 	  <ul>
