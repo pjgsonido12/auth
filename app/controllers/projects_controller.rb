@@ -53,8 +53,11 @@ class ProjectsController < ApplicationController
   end
   
   def dashboard  
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => [2,5,6,7]} }, :order => "tasks.due_date DESC")    
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,4,5,6,7]} }, :order => "tasks.due_date DESC") 
+    if admin_role && current_user.permissions.length == 0
+      @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => [2,5,6,7]} }, :order => "tasks.due_date DESC")    
+    else
+      @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,4,5,6,7]} }, :order => "tasks.due_date DESC") 
+    end
     @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
