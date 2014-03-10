@@ -5,25 +5,21 @@ class TasksController < ApplicationController
     def index
       @tasks = current_project.tasks.where(['is_active = ?', 1]).order("task_status_id ASC")
       @grouped_tasks = @tasks.group_by &:task_status
-      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def done_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 3])
       @grouped_tasks = @tasks.group_by &:task_status
-      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def resolved_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 4])
       @grouped_tasks = @tasks.group_by &:task_status
-      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
     
     def my_task
       @tasks = current_project.tasks.where(['is_active = ? AND task_status_id <> ? AND task_status_id <> ? AND assigned_to = ?', 1, 3, 1, current_user.id])
       @grouped_tasks = @tasks.group_by &:task_status
-      @tasks = @tasks.paginate(:page => params[:page],:per_page => 10)
     end
             
     def show
@@ -51,20 +47,6 @@ class TasksController < ApplicationController
           @task_statuses = TaskStatus.task_done     
         end
         } # show.html.erb
-        
-        format.pdf  {
-          task_number = $1
-          pdfname = task_number.to_s + "_" + "Standard_Profile.pdf"
-          prawn_attributes = { :top_margin => 40, :left_margin => 25, :page_layout => :landscape }
-          @task = Task.find_by_task_number(task_number)
-          profile = StandardProfile.new(@task,prawn_attributes)
-          
-          if @task
-            send_data profile.to_pdf, :filename => pdfname, :type => "application/pdf", :disposition => 'inline'
-          else
-            send_data IO.read(File.join(Rails.root, 'public', '404.html')), :status => "404 Not Found", :disposition => 'inline'
-          end
-        }
         
       end
     end
@@ -154,7 +136,15 @@ class TasksController < ApplicationController
               #UserMailer.updated_task(person, @project, @task).deliver
             end
             flash[:notice] = "You have successfully updated task information."
-            format.html { redirect_to project_task_url }
+            if @task.task_status.name == 'Resolved'
+              format.html { redirect_to dashboard_url }
+            elsif @task.task_status.name == 'Closed'
+              format.html { redirect_to resolved_task_url }
+            elsif @task.task_status.name == 'Re-Open'
+              format.html { redirect_to done_task_url }
+            else
+              format.html { redirect_to project_task_url }
+            end
             format.xml  { head :ok }
           else
             format.html { render :edit }
