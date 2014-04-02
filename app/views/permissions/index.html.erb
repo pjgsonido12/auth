@@ -24,6 +24,15 @@
       <% end %>
   </div>
   <% end %>
+
+<%= form_for @permission, :url => project_permissions_url, :html => {:class => "person"} do |f| %>
+  <h1> Add person to access: </h1>
+  <p><%= f.select :person_id, options_for_select(@add_people.collect{ |u| [u.name, u.id] }) %></p>
+  <%= f.hidden_field :project_id, :value => current_project.id %>
+  <%= f.hidden_field :role_id, :value => 3 %>
+  <div class="submit"><p class="align-right"><%= submit_tag "Add person access", :class => "button" %></p></div>
+<% end %>
+
 </div>
 
 <div id="main"> <a name="TemplateInfo"></a>
