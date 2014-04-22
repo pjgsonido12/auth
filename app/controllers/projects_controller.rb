@@ -10,44 +10,8 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])    
   end
   
-  def invalid_task
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 8} }, :order => "tasks.due_date DESC") 
-    @grouped_tasks = @tasks.group_by &:project
-    @projects = current_user.projects.is_active
-  end
-  
-  def closed_task
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [4,3]} }, :order => "tasks.due_date DESC")    
-    @grouped_tasks = @tasks.group_by &:project
-    @projects = current_user.projects.is_active
-  end
-  
-  def ongoing_task
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => 7} }, :order => "tasks.due_date DESC")    
-    @grouped_tasks = @tasks.group_by &:project
-    @projects = current_user.projects.is_active
-  end
-  
-  def pending_task
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,5,6]} }, :order => "tasks.due_date DESC")    
-    @grouped_tasks = @tasks.group_by &:project
-    @projects = current_user.projects.is_active
-  end
-  
-  def new_task
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 1} }, :order => "tasks.due_date DESC") 
-    @grouped_tasks = @tasks.group_by &:project
-    @projects = current_user.projects.is_active
-  end
-  
-  def resolved_task
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 4} }, :order => "tasks.due_date DESC") 
-    @grouped_tasks = @tasks.group_by &:project
-    @projects = current_user.projects.is_active
-  end
-  
-  def done_task
-    @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => 3} }, :order => "tasks.due_date DESC") 
+  def report
+    @tasks = Task.eager_load(:project).where("projects.is_active = ? AND tasks.is_active = ?", true, true).task_stat(params[:task_stat],params[:start_date],params[:end_date])
     @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
   end
