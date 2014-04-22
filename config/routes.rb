@@ -11,13 +11,7 @@ Auth::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   match 'dashboard' => 'projects#dashboard', :as => 'dashboard'
   match 'overdue' => 'projects#overdue', :as => 'overdue'
-  match 'new_task' => 'projects#new_task', :as => 'new_task'
-  match 'resolved_task' => 'projects#resolved_task', :as => 'resolved_task'
-  match 'done_task' => 'projects#done_task', :as => 'done_task'
-  match 'pending_task' => 'projects#pending_task', :as => 'pending_task'
-  match 'ongoing_task' => 'projects#ongoing_task', :as => 'ongoing_task'
-  match 'closed_task' => 'projects#closed_task', :as => 'closed_task'
-  match 'invalid_task' => 'projects#invalid_task', :as => 'invalid_task'
+  match 'report' => 'projects#report', :as => 'report'
   match '/permissions/update_role' => 'permissions#update_role', :as => 'update_role', :via => [:put]
   match "/", :to => "application#index", :as => :application
   post '/email_processor' => 'griddler/emails#create'
@@ -46,11 +40,8 @@ Auth::Application.routes.draw do
       end
       
       collection do
-        get :new_task
         get :overdue
-        get :pending_task
-        get :ongoing_task
-        get :closed_task
+        get :report
       end  
       resources :comments
     end
