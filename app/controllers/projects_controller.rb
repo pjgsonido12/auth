@@ -54,9 +54,10 @@ class ProjectsController < ApplicationController
   
   def dashboard  
     if admin_role && current_user.permissions.length == 0
-      @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:is_active => true, :task_status_id => [2,5,6,7]} }, :order => "tasks.due_date DESC")    
+      @tasks = Task.eager_load(:project).where("projects.is_active = ? AND tasks.is_active = ? AND tasks.task_status_id IN (?)", true, true, [2,4,5,6,7]).search(params[:search])    
     else
-      @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,4,5,6,7]} }, :order => "tasks.due_date DESC") 
+    #  @tasks = Task.all(:joins => :project, :conditions => { :projects => { :is_active => true }, :tasks => {:assigned_to => current_user, :is_active => true, :task_status_id => [2,4,5,6,7]} }, :order => "tasks.due_date DESC") 
+      @tasks = Task.eager_load(:project).where("projects.is_active = ? AND tasks.assigned_to = ? AND tasks.is_active = ? AND tasks.task_status_id IN (?)", true, current_user, true, [2,4,5,6,7]).search(params[:search])
     end
     @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active

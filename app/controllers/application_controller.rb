@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   
   def authenticate_project!
     unless current_project.is_active
-      flash[:notice] = "This project is not active."
+      flash[:error] = "This project is not active."
       redirect_to dashboard_url
     end
   end

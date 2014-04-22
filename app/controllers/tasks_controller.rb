@@ -3,22 +3,7 @@ class TasksController < ApplicationController
   before_filter :authenticate_project!
   
     def index
-      @tasks = current_project.tasks.where(['is_active = ?', 1]).order("task_status_id ASC")
-      @grouped_tasks = @tasks.group_by &:task_status
-    end
-    
-    def done_task
-      @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 3])
-      @grouped_tasks = @tasks.group_by &:task_status
-    end
-    
-    def resolved_task
-      @tasks = current_project.tasks.where(['is_active = ? AND task_status_id = ?', 1, 4])
-      @grouped_tasks = @tasks.group_by &:task_status
-    end
-    
-    def my_task
-      @tasks = current_project.tasks.where(['is_active = ? AND task_status_id <> ? AND task_status_id <> ? AND assigned_to = ?', 1, 3, 1, current_user.id])
+      @tasks = current_project.tasks.is_active.search(params[:search])
       @grouped_tasks = @tasks.group_by &:task_status
     end
             
@@ -125,7 +110,7 @@ class TasksController < ApplicationController
        @task_types = TaskType.all
        @media = Medium.all
        if params[:people].nil? 
-         flash[:notice] = "Please check atleast one person."
+         flash[:alert] = "Please check atleast one person."
          redirect_to :back
        else  
          @people = Person.find(params[:people])
