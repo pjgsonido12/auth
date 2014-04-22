@@ -1,16 +1,16 @@
-<div id="menu">
-	<ul>
+<ul class="nav navbar-nav">
+
 	<% if current_page?(project_permissions_url(current_project)) %>
 	<li><%= link_to 'Dashboard',dashboard_url %></li>
     <li><%= link_to current_project.name + ' Overview', overview_project_url(current_project) %></li>   
   <% if current_role == 'Administrator' || admin_role %>
-    	<li id="current"><%= link_to 'Permissions', project_permissions_url(current_project) %></li>
+    	<li class="active"><%= link_to 'Permissions', project_permissions_url(current_project) %></li>
   <% end %>
     <li><%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %></li>
 
 	<% elsif current_page?(overview_project_url(current_project)) %>
 	<li><%= link_to 'Dashboard',dashboard_url %></li>
-    <li id="current"><%= link_to current_project.name + ' Overview', overview_project_url(current_project) %></li>   
+    <li class="active"><%= link_to current_project.name + ' Overview', overview_project_url(current_project) %></li>   
   <% if current_role == 'Administrator' || admin_role %>
     	<li><%= link_to 'Permissions', project_permissions_url(current_project) %></li>
   <% end %>
@@ -22,10 +22,10 @@
   <% if current_role == 'Administrator' || admin_role %>
     	<li><%= link_to 'Permissions', project_permissions_url(current_project) %></li>
   <% end %>
-    <li id="current"><%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %></li>
+    <li class="active"><%= link_to 'Tasks', project_tasks_url(current_project), :class => "left" %></li>
 	<% end %>
-	</ul>
-</div>
+</ul>
+
 
 
 
