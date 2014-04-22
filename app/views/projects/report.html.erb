@@ -1,0 +1,48 @@
+<script type="text/javascript">
+  $j(document).ready(function(){   
+	$j('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+	
+  })
+</script>
+
+<div id="content-wrap">
+  <div id="main"> 
+    <h2>Reports <span class="badge">
+		<% if @tasks.length == 0 %>
+			No tasks found.
+		<% else %>
+			<%= @tasks.length %>
+		<% end %></span>	</h2>
+    <%= render :partial => "projects/task_field" %>	
+  </div>
+
+  <div id="sidebar">		
+	
+	<%= form_tag report_url, :method => 'get' do %>
+	<div class="form-group">
+	  <legend>SEARCH:</legend>
+	  <div class="input-group">
+	    <span class="input-group-addon">Task Status</span>
+		<%= text_field_tag :task_stat, params[:task_stat], :class => "form-control" %>
+		<span class="input-group-btn">	     
+		  <%= submit_tag "Find", :name => nil, :class => "btn btn-primary" %>
+	    </span>
+	  </div><br />
+	
+	  <div class="input-group">
+	    <span class="input-group-addon">Start Date</span>
+		<%= text_field_tag :start_date, params[:start_date], :class => "datepicker" %>
+	  </div><br /> 
+	
+	  <div class="input-group">
+	    <span class="input-group-addon">End Date</span>
+		<%= text_field_tag :end_date, params[:end_date], :class => "datepicker" %>
+	  </div><br />	
+
+	</div>
+	<% end %>
+		
+  </div>
+
+</div>
+
