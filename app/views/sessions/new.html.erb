@@ -1,11 +1,11 @@
 <div id='login'>	
-	<h3>Log in</h3>
+	<h3 style="margin-left:10px;"> Log in</h3>
 	<%= form_tag sessions_path do %>
-        <p>
+        <p align="center">
 		<label for="username">Email Address</label>
 		<%= text_field_tag :email, params[:email] %>
         </p>
-		<p>
+		<p align="center">
 		<%= label_tag :password %>
 		<%= password_field_tag :password %>
 		</p>
@@ -13,8 +13,8 @@
 	        <label for="remember_me"></label>
 	        <%= check_box_tag :remember_me %> <span><small>Remember on computer</small></span>
 	    </div>
-		<div style="margin:20px;text-align:center;">
-		  <%= submit_tag "Log in", :class => "button" %>
+		<div style="margin:20px;text-align:right;">
+		  <%= submit_tag "Log in", :class => "btn btn-primary btn-xs" %>
 		</div>
 	<% end %>
 </div>

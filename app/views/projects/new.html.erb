@@ -1,21 +1,10 @@
-<div id="menu">
-	<ul>    
-		<li><%= link_to 'Dashboard',dashboard_url %></li>
-		<li id="current"><%= link_to 'Projects',projects_url %></li>
-		<% if admin_role %>	
-			<li><%= link_to 'People', people_url %></li>
-		<% end %>
-	</ul>
-</div>
-
 <div id="content-wrap">	
-<div id="main"> <a name="TemplateInfo"></a>
-<h1>New Project</h1>
-
+<div id="main"> 
 <%= form_for @project, :html => {:class => "person"} do |f| %>
+<legend>New Project</legend>
   <% if @project.errors.any? %>
-    <div class="error_messages">
-	  <h2>Form is valid</h2>
+    <div class="well well-sm">
+	  <h5>Form is valid</h5>
 	  <ul>
 		  <% for message in @project.errors.full_messages %>
 		  <li><%= message%></li>
@@ -29,16 +18,13 @@
 	<%= f.text_field :name %>
   </div></p>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.label :description %>
 	<%= f.text_area :description %>
   </div></p>
 	<%= f.hidden_field :createdby, :value => current_user.id %>
 	<%= f.hidden_field :is_active, :value => true %>
-  <div class="submit"><%= submit_tag "Create Project", :class => "button" %></div>
+  <div class="submit"><%= submit_tag "Create Project", :class => "btn btn-primary btn-xs" %><small> or <%= link_to 'cancel', projects_url, :class => "red" %></small></div>
 <% end %>
 </div>
-</div>
-
-<div id="footer">
 </div>

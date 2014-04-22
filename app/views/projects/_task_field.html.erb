@@ -1,10 +1,46 @@
+<table class="table table-striped table-hover ">
+	<thead>
+	  <tr>
+		<th></th>
+		<th>Comment</th>
+		<th>Status</th>
+		<th>Owner</th>
+	    <th>Due Date</th>
+	  </tr>
+	</thead>
 <% @grouped_tasks.each do |project, tasks| %>
-	<h3><%= project.name %></h3>
+<thead>
+  <tr>
+	<th><%= project.name %></th>
+	<th></th>
+	<th></th>
+	<th></th>
+    <th></th>
+  </tr>
+</thead>
 	<% tasks.each do |task| %>
-	  <p style="margin-left:20px;margin-top:-16px;"> <strong><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 30, :omission=>("...")) , project_task_url(:project_id =>  task.project_id, :id => task.id) %></strong> (<%= task.task_status.description %> <% if current_user.id == task.assigned_to %><b>You</b><% else %><%= task.assigned_person.nickname %><% end %>)</p>
+  <tbody>
+  <% if task.task_status.name == "Accepted" %>
+	<tr class="info">
+  <% elsif task.task_status.name == "Resolved" || task.task_status.name == "Closed" %>	
+	<tr class="success">
+  <% elsif task.task_status.name == "Re-Assigned" %>	
+	<tr class="warning">
+  <% elsif task.task_status.name == "Re-Open" %>	
+	<tr class="danger">
+  <% else %>
+    <tr class="active">
+  <% end %>
+	<td><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 50, :omission=>("...")) , project_task_url(:project_id =>  task.project_id, :id => task.id) %></td>	
 	
-	  <p class="post-footer align-right" style="margin-top:-30px;">
-	  <a class="comments" href="http://<%= request.env['HTTP_HOST'] %>/projects/<%=  task.project_id %>/tasks/<%= task.id %>#read">Comments(<%= task.comments.is_active.length %>)</a> <span class="date"><%= task.due_date.strftime("%d %B %Y") %> </span> 
-	  </p><br />
+	<td><a href="http://<%= request.env['HTTP_HOST'] %>/projects/<%=  task.project_id %>/tasks/<%= task.id %>#read">Comments(<%= task.comments.is_active.length %>)</a></td>
+	
+	<td><%= task.task_status.name %></td>
+	<td><% if task.task_status.name == "New" %>N/A<% elsif current_user.id == task.assigned_to %><b>You</b><% else %><%= task.assigned_person.nickname %><% end %></td>
+	<td><%= task.due_date.strftime("%d %B %Y") %></td>
+    </tr>
+  </tbody>		
 	<% end %>
 <% end %>
+
+</table>

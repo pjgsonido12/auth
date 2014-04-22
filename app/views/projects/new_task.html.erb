@@ -1,52 +1,25 @@
-<div id="menu">
-	<ul>    
-		<li id="current"><%= link_to 'Dashboard',dashboard_url %></li>
-		<li><%= link_to 'Projects',projects_url %></li>
-		<% if admin_role %>	
-			<li><%= link_to 'People', people_url %></li>
-		<% end %>
-	</ul>
-</div>
-
-
 <div id="content-wrap">
-<div id="main"> <a name="TemplateInfo"></a>
-  <h1>New - Tasks</h1>
-  <%= render :partial => "projects/non_task_field" %>		
-</div>
+  <div id="main"> 
+    <h2>New - Tasks</h2>
+    <%= render :partial => "projects/task_field" %>	
+  </div>
 
-<div id="sidebar">
-	<% if current_user.permissions.length > 0 %>
-	<h1>My Projects</h1>
-	<ul class="sidemenu">
-	<% for project in @projects %>	
-	 <li><%= link_to project.name, project_tasks_url(project) %></li>
-	<% end %>
-	</ul>
-	
-	<h1>My Task Status</h1>
-	<ul>
-	  <li><b><%= link_to "Pending", pending_task_url,:method => :get %></b></li>
-	  <li><b><%= link_to "On going", ongoing_task_url,:method => :get %></b></li>
-	  <li><b><%= link_to "Done", closed_task_url,:method => :get %></b></li>
-	</ul>
-	<% end %>
-	<h1>Reports</h1>
-	  <ul>
-	 <li><b><%= link_to "Overdue", overdue_url,:method => :get %></b></li>
-	 <li><b><u><%= link_to "New Task", new_task_url,:method => :get %></u></b></li>
-	 <li><b><%= link_to "Invalid Task", invalid_task_url,:method => :get %></b></li>
+  <div id="sidebar">		
+	<div class="panel panel-default" style="margin-bottom:-5px;">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Reports</h3>
+	  </div>
+	</div>
+    <div class="list-group">
+	 <%= link_to "Overdue", overdue_url,:method => :get, :class => "list-group-item" %>
+	 <%= link_to "New Task", new_task_url,:method => :get, :class => "list-group-item active" %>
+	 <%= link_to "Invalid Task", invalid_task_url,:method => :get, :class => "list-group-item" %>
 	 <% if admin_role %>
-	   <li><b><%= link_to "Resolved Task", resolved_task_url,:method => :get %></b></li>
-	   <li><b><%= link_to "Completed Task", done_task_url,:method => :get %></b></li>
+	   <%= link_to "Resolved Task", resolved_task_url,:method => :get, :class => "list-group-item" %>
+	   <%= link_to "Completed Task", done_task_url,:method => :get, :class => "list-group-item" %>
 	 <% end %>
-	 </ul>
-	
-</div>
+    </div>	
+  </div>
 
 </div>
 
-
-
-<div id="footer">
-</div>

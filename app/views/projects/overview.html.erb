@@ -1,15 +1,15 @@
 <div id="content-wrap">
 	<div id="sidebar">	 
 	  <% if current_role == 'Administrator' || admin_role %>
-      <%= button_to "Edit Project", edit_project_url,:method => :get, :class => "button" %>
+      <%= button_to "Edit Project", edit_project_url,:method => :get, :class => "btn btn-primary btn-xs" %>
 	  <% end %>	   
 	</div>
 
-	<div id="main"> <a name="TemplateInfo"></a>
-	  <h1><%= current_project.name %></h1> 
-	  <div style="text-align:justify;">    
-        <p><%= h(current_project.description).gsub(/\n/, '<br />').html_safe %></p>
-      </div>
+	<div id="main">
+	  <h2><%= current_project.name %></h2> 
+	  <p align="justify"> 
+        <%= h(current_project.description).gsub(/\n/, '<br />').html_safe %>
+      </p>
     </div>	
 </div>
 

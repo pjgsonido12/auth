@@ -1,57 +1,54 @@
 <div id="content-wrap">
 
 <div id="sidebar">
-	<%= form_tag update_role_url, :method => :put do %>
-	  <% if @permission.errors.any? %>
-	    <div class="error_messages">
-		  <h2>Form is valid</h2>
-		  <ul>
-			  <% for message in @permission.errors.full_messages %>
-			  <li><%= message%></li>
-			  <% end %>
-		  </ul>
-		</div>
-	  <% end %>
-
-  <h1> Select role: </h1>
-  <p><%= select_tag :role_id, options_for_select(@roles.collect{ |u| [u.name, u.id] }) %></p>
-  <h1> Person with access: </h1>
-  <p><%= select_tag :person_id, options_for_select(@people.collect{ |p| [p.person.name, p.person.id] }) %></p>
+  <%= form_tag update_role_url, :method => :put do %>
+  <div class="panel panel-primary">
+  <div class="panel-body">
+    <h3 class="panel-title">Select role:</h3>
+		<p><%= select_tag :role_id, options_for_select(@roles.collect{ |u| [u.name, u.id] }) %></p>
+    <h3 class="panel-title">Person with access: </h3>
+  		<p><%= select_tag :person_id, options_for_select(@people.collect{ |p| [p.person.name, p.person.id] }) %></p>
   <%= hidden_field_tag :project_id, current_project.id %>
-  <div class="submit">
+  <div align="right">
 	  <% if current_role %>
-        <p class="align-right"><%= submit_tag "Update role", :class => "button" %></p>
+        <%= submit_tag "Update role", :class => "btn btn-primary btn-xs" %>
       <% end %>
+  </div>
+  </div>
   </div>
   <% end %>
 
 <%= form_for @permission, :url => project_permissions_url, :html => {:class => "person"} do |f| %>
-  <h1> Add person to access: </h1>
+  <div class="panel panel-primary">
+  <div class="panel-body">
+  <h3 class="panel-title">Add person to access: </h3>
   <p><%= f.select :person_id, options_for_select(@add_people.collect{ |u| [u.name, u.id] }) %></p>
   <%= f.hidden_field :project_id, :value => current_project.id %>
   <%= f.hidden_field :role_id, :value => 3 %>
-  <div class="submit"><p class="align-right"><%= submit_tag "Add person access", :class => "button" %></p></div>
+  <div align="right"><%= submit_tag "Add person access", :class => "btn btn-primary btn-xs" %></div>
+  </div>
+  </div>
 <% end %>
 
 </div>
 
-<div id="main"> <a name="TemplateInfo"></a>
-  <h1> Project Roles </h1>
-    <h3> ADMINISTRATOR:</h3> 
+<div id="main">
+  <legend> Project Roles </legend>
+    <h2> ADMINISTRATOR:</h2> 
 	<ul>
 	<% for admin_role in @admin_roles %>
 	  <li><%= admin_role.person.name %></li>
 	<% end %>
 	</ul>
 
-    <h3> USER:</h3> 
+    <h2> USER:</h2> 
 	<ul>
 	<% for user_role in @user_roles %>
 	  <li><%= user_role.person.name %></li>
 	<% end %>
 	</ul>
 
-    <h3> SPECTATOR:</h3>
+    <h2> SPECTATOR:</h2>
 		<ul>
 	<% for spec_role in @spec_roles %>
 	  <li><%= spec_role.person.name %></li>
@@ -59,8 +56,4 @@
 	</ul>
 </div>
 
-</div>
-
-
-<div id="footer">
 </div>

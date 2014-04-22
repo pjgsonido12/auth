@@ -1,22 +1,26 @@
 <div id="content-wrap">
-<div id="main"> <a name="TemplateInfo"></a>	
-  <h1> <%= current_project.name %> - Tasks </h1>
+<div id="main"> 
+  <h2> <%= current_project.name %> - Tasks </h2>
   <%= render :partial => "tasks/task_field" %>	
 </div>
 
 <div id="sidebar">
-    <%= button_to "Add Task", new_project_task_url,:method => :get, :class => "button" %>
-
-  <h1> Show tasks by: </h1>
-  <ul class="sidemenu"> 
-    <li><%= link_to "My Task", my_task_project_tasks_url,:method => :get %></li>
-	<% if current_role == 'Administrator' || admin_role %>
-	    <li><%= link_to "Resolved Task", resolved_task_project_tasks_url,:method => :get %></li>
-	    <li><%= link_to "Completed Task", done_task_project_tasks_url,:method => :get %></li>
+    <%= button_to "Add Task", new_project_task_url,:method => :get, :class => "btn btn-primary btn-xs" %>
+<br/>
+	
+	<%= form_tag project_tasks_url, :method => 'get' do %>
+	<div class="form-group">
+	  <label class="control-label">by status, task name, or owner name</label>
+	  <div class="input-group">
+	    <span class="input-group-addon">Search</span>
+	    
+		<%= text_field_tag :search, params[:search], :class => "form-control" %>
+	    <span class="input-group-btn">	     
+		  <%= submit_tag "Go", :name => nil, :class => "btn btn-primary" %>
+	    </span>
+	  </div>
+	</div>
 	<% end %>
-	</ul>
 </div>
 
-</div>
-<div id="footer">
 </div>

@@ -6,13 +6,12 @@
 </script>
 
 <div id="content-wrap">
-<div id="main"> <a name="TemplateInfo"></a>	
-<h1> New Task </h1> 
-
+<div id="main"> 
   <%= form_for @task, :url => project_tasks_url, :html => {:class => "person"} do |f| %>
+  <legend>New Task</legend>
   <% if @task.errors.any? %>
-    <div class="error_messages">
-	  <h2>Form is valid</h2>
+    <div class="well well-sm">
+	  <h5>Form is valid</h5>
 	  <ul>
 		  <% for message in @task.errors.full_messages %>
 		  <li><%= message%></li>
@@ -27,13 +26,13 @@
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.label :task_type_id %>
     <%= f.select :task_type_id, options_for_select(@task_types.collect{ |u| [u.name, u.id] }) %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.label :description %>
 	<%= f.text_area :description %>
   </div>
@@ -43,50 +42,49 @@
 	<%= f.hidden_field :created_by, :value => current_user.id %>
   </div>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.check_box :is_priority %>
 	<b><%= f.label :is_priority %></b>
   </div>
   </p>	 
   <p>	 
-  <div class="field", style="margin-top:-30px;">	
+  <div class="field">	
 	<%= f.label :due_date , :id =>"send_to_one"%>   
 	<%= f.text_field :due_date, :class => "datepicker", :value => Date.today, :id =>"send_to_two"  %>
   </div>          
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.label :severity %>
     <%= f.select :severity_id, options_for_select(@severities.collect{ |u| [u.name, u.id] }) %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.label :source %>
     <%= f.select :person_id, options_for_select(@people.collect{ |p| [p.name, p.id] }) %>
   </div>
   </p>
   <p>
-  <div style="margin-top:-58px;margin-left:250px;">
-    <b>via : </b>  <%= f.select :medium_id, options_for_select(@media.collect{ |p| [p.name, p.id] }) %>
+  <div class="field">
+    <%= f.label :medium_id, "Medium Type" %>
+	<%= f.select :medium_id, options_for_select(@media.collect{ |p| [p.name, p.id] }) %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.label :repository_link %>
 	<%= f.text_field :repository_link %>
   </div>
   </p>
-  <div class="field">
+
 	<%= f.hidden_field :is_active, :value => true %>
 	<%= f.hidden_field :task_status_id, :value => 1 %>
 	<%= f.hidden_field :assigned_to, :value => current_user.id %>
 	<%= f.hidden_field :task_number, :value => @task_number %>
-  </div>
-  <div class="submit"><%= submit_tag "Create Task", :class => "button" %></div>
+  <br />
+  <div class="submit"><%= submit_tag "Create Task", :class => "btn btn-primary btn-xs" %><small> or <%= link_to 'cancel', project_tasks_url, :class => "red" %></small></div>
 </div>
 <% end %>
 
-</div>
-<div id="footer">
 </div>

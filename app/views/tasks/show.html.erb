@@ -34,40 +34,65 @@ $j(document).ready(function() {
 });
 </script>
 <div id="content-wrap">
-<div id="main"> <a name="TemplateInfo"></a>	
-  <h1>#<%= @task.task_number %> - <%= @task.title %></h1> 
-	  
-	  <p><strong>Status:</strong> <%= @task.task_status.name %> <% if @task.is_priority == 1 %>(Priority)<%end%></p>
-	  <p style="margin-top:-20px;"><strong>Due date:</strong> <% if @task.is_priority == 1 %><%= @task.due_date.strftime("%d %B %Y") %> <% else %> N/A<%end%></p>
-	  <p style="margin-top:-20px;"><strong>Created by:</strong> <%= @task.created_person.name %></p>
-      <p style="margin-top:-20px;"><strong>Created at:</strong> <%= @task.created_at.strftime("%d %B %Y") %></p>
-      <p style="margin-top:-20px;"><strong>Assigned to:</strong> <%= @task.assigned_person.name unless @task.task_status.name == "New" %></p>
-	  <% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed'%>
-	    <p style="margin-top:-60px;margin-left:350px;"><strong>Date Resolved:</strong> <%= @task.date_resolved.strftime("%d %B %Y") %></p>
-	  <% end %>
-      <% if @task.task_status.name == 'Closed'%>
-        <p style="margin-top:-20px;margin-left:350px;"><strong>Date Completed:</strong> <%= @task.date_completed.strftime("%d %B %Y") %></p>
-      <% end %> </br>    
-      <p style="margin-top:-10px;"><code><strong>Repository Link:</strong> <%= @task.repository_link %></code></p><br />
-       <p style="margin-top:-20px;">	      
-	     <strong>Description: </strong><%= @task.task_type.name %>(<%= @task.severity.name %>)
-		 <br></br> <%= h(@task.description).gsub(/\n/, '<br />').html_safe %>
-	   </p><br />
-	   <p style="margin-top:-20px;"><strong>Source:</strong> <%= @task.source_person.name %> via <%= @task.medium.name %></p>
+<div id="main"> 
+  <h2>#<%= @task.task_number %> - <%= @task.title %></h2> 
+
+	<table class="table table-striped table-hover ">
+	  <tbody>
+	    <tr>
+	      <td><strong>Status:</strong></td>
+	      <td><%= @task.task_status.name %> <% if @task.is_priority == 1 %>(Priority)<%end%></td>
+	      <td><strong>Due date:</strong></td>
+	      <td><%= @task.due_date.strftime("%d %B %Y") %></td>
+	    </tr>
+	    <tr>
+	      <td><strong>Created by:</strong></td>
+	      <td><%= @task.created_person.name %></td>
+	      <td><strong>Created at:</strong></td>
+	      <td><%= @task.created_at.strftime("%d %B %Y") %></td>
+	    </tr>
+	    <tr>
+	      <td><strong>Assigned to:</strong></td>
+	      <td><% if @task.task_status.name == "New" %>N/A<% else %><%= @task.assigned_person.name %><% end %></td>
+	      <td><strong>Date Resolved:</strong></td>
+	      <td><% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed'%><%= @task.date_resolved.strftime("%d %B %Y") %><% else %> N/A <% end %></td>
+	    </tr>
+	    <tr>
+	      <td></td>
+	      <td></td>
+	      <td><strong>Date Completed:</strong></td>
+	      <td><% if @task.task_status.name == 'Closed'%><%= @task.date_completed.strftime("%d %B %Y") %><% else %> N/A <% end %></td>
+	    </tr>
+
+	  </tbody>
+	</table>
+
+      <div class="well well-sm"><strong>Repository Link:</strong> <abbr title="attribute"><%= @task.repository_link %></abbr></div><br />
+
+    <p class="text-primary">	      
+	  <strong>Description: </strong><%= @task.task_type.name %>(<%= @task.severity.name %>)		 
+	</p>
+	
+	<blockquote>
+	  <p align="justify"><%= h(@task.description).gsub(/\n/, '<br />').html_safe %></p>
+	  <small>Source: <cite title="Source Title"><%= @task.source_person.name %> via <%= @task.medium.name %></cite></small>
+	</blockquote>
+		
+	<br /><br />	
 		 	
 		  <% for comment in @comments.is_active %>
 	        <div style="text-align:right;margin-right:-16px;margin-bottom:-10px;">
 		      <% if comment.created_by == current_user.id %>
 	             <%= button_to("x", remove_project_task_url(:id => comment.id, :task_id => comment.task_id), {:onclick => "return confirm('Are you sure you want to remove this comment?')", :method => :put, :class => "button" }) %>	
 	          <% end %></div>
-		  <blockquote>
+		  <div class="panel panel-default">
           <p>	 			
 			<%= raw(comment.comment) %>
 			<small><div id="smallcheck", style="text-align:right;margin-right:5px;">
 			<b><%= comment.created_person.email %></b>   
 		    <%= comment.created_at.strftime("%a, %d %B %Y at %I:%M%p") %></small></div>  
 	  	  </p>
-		  </blockquote>
+		  </div>
 		  <% end %>
 		
 		  <%= form_for(@comment, :url => project_task_comments_url(:task_id => @task.id),:html => {:id => 'comment', :multipart => true}) do |f| %>
@@ -77,13 +102,13 @@ $j(document).ready(function() {
 		  <%= f.hidden_field :created_by, :value => current_user.id %>
 		  <%= f.hidden_field :is_active, :value => true %>
 		
-		  <a id="read"><%= submit_tag "Post", :class => "button" %></a>				
+		  <a id="read"><%= submit_tag "Post", :class => "btn btn-primary btn-xs" %></a>				
 		  <% end %> 
 		
 </div>
 
 <div id="sidebar">
-    <%= button_to "Edit Task", edit_project_task_url(:project_id => current_project.id, :id => @task.id), :method => :get, :class => "button" %>
+    <%= button_to "Edit Task", edit_project_task_url(:project_id => current_project.id, :id => @task.id), :method => :get, :class => "btn btn-primary btn-xs" %>
   
 <%= form_for @task, :url => project_task_url(:id => @task.id),:html => {:method => :put,:class => "person"} do |f| %>
   <% if @task.errors.any? %>
@@ -101,15 +126,40 @@ $j(document).ready(function() {
 	<%= f.hidden_field :project_id, :value => current_project.id %>
 	<%= f.hidden_field :updated_by, :value => current_user.id %>
   </div>
+  <br />
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Project Name</h3>
+	  </div>
+		<div class="panel-body">
+	  		<%= link_to current_project.name, project_tasks_url(current_project) %>
+	  </div>
+	</div>
 
-	<h1>Project Name</h1>
-	<ul class="sidemenu">
-	 <% @task_count = Task.where(:project_id => current_project.id, :assigned_to => current_user.id, :is_active => 1).length %>	
-	 <li><%= link_to current_project.name, project_tasks_url(current_project) %>(<%= @task_count %>)</li>
-	</ul>
-
-  <h1> Assigned Task to: </h1>
-  <p>
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Person to notify:</h3>
+	  </div>
+   <div class="panel-body">  
+	  <% check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'people')" }) %>
+    <% @permissions.each do |permission| %>
+	
+    <% if permission.person_id == current_user.id || permission.person_id == 30 || permission.person_id == @task.assigned_to %>
+      <%= check_box_tag("people[]",permission.person.id,true,{ :class => "people", :id => "person-#{permission.person_id}", :onclick => "toggleMaster(this,'select_all')" }) %>
+    <% else %>
+      <%= check_box_tag("people[]",permission.person.id,false,{ :class => "people", :id => "person-#{permission.person_id}", :onclick => "toggleMaster(this,'select_all')" }) %>
+    <% end %>
+	<%= permission.person.name %>
+	<br/>
+    <% end %>
+	</div>
+  </div>
+	
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Assigned Task to:</h3>
+	  </div>
+	<div class="panel-body">
 	<%= f.hidden_field :reassigned_count , :id => "reassigned" %>
 	<%= f.hidden_field :reopen_count , :id => "reopen" %>
 	
@@ -119,7 +169,7 @@ $j(document).ready(function() {
 	    <%= f.label :task_status_id, {}, :style => "margin-right: 10px" %>  
 	    <%= f.select :task_status_id, @task_statuses.map {|t| [t.name,t.id] }, {}, :style => "width:150px", :onclick => "handleSelect()" %>
 	   <% end %>
-	
+	<br />
 	   <% if @task.task_status.name == 'Assigned' || @task.task_status.name == 'Accepted' || @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed' || @task.task_status.name == 'Re-Open' || @task.task_status.name == 'Re-Assigned' %>
 		<% if @task.task_status.name == 'Accepted' %>
 		  <%= f.hidden_field :date_resolved, :value => Time.now %>
@@ -130,29 +180,15 @@ $j(document).ready(function() {
       <% else %>
 	    <%= f.label :assigned_to, {}, :style => "margin-right: 10px" %>    
 	    <%= f.select :assigned_to, @permissions.map {|u| [u.person.name,u.person.id] }, {}, :style => "width:130px" ,:id => "ddlViewBy" %>
-      <% end %>
+      <% end %> 
+
+  <p align="right"><br>
+      <%= submit_tag "Assign task", :class => "btn btn-primary btn-xs" %>
   </p>
 
-  <p class="align-right">
-      <%= submit_tag "Assign task", :class => "button" %>
-  </p>
 
-  <h1> Person to notify: </h1>
-    <p>
-	  <% check_box_tag("master",1,false,{ :id => "select_all", :onclick => "toggleItems(this,'people')" }) %>
-    <% @permissions.each do |permission| %>
-    <% if permission.person_id == current_user.id || permission.person_id == 30 || permission.person_id == @task.assigned_to %>
-      <%= check_box_tag("people[]",permission.person.id,true,{ :class => "people", :id => "person-#{permission.person_id}", :onclick => "toggleMaster(this,'select_all')" }) %>
-    <% else %>
-      <%= check_box_tag("people[]",permission.person.id,false,{ :class => "people", :id => "person-#{permission.person_id}", :onclick => "toggleMaster(this,'select_all')" }) %>
-    <% end %>
-	&nbsp;<span><%= permission.person.name %>
-   <br>
-    <% end %>
-    </p>
 <% end %>
 </div>
 </div>
-<div id="footer">
 </div>
-
+</div>
