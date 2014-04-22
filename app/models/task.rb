@@ -15,4 +15,13 @@ class Task < ActiveRecord::Base
   
   validates_presence_of :title, :due_date
   validates_uniqueness_of :title
+  
+  def self.search(search)
+    if search
+      person_id = Person.where('firstname LIKE ?',"%#{search}%").map(&:id)
+      find(:all, :order => "due_date DESC", :joins => :task_status, :conditions => ['task_statuses.name LIKE ? OR title LIKE ? OR assigned_to IN (?)', "%#{search}%", "%#{search}%",person_id])
+    else
+      find(:all, :order => "due_date DESC")
+    end
+  end
 end
