@@ -31,7 +31,7 @@
   <% else %>
     <tr class="active">
   <% end %>
-	<td><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 50, :omission=>("...")) , project_task_url(:project_id =>  task.project_id, :id => task.id) %></td>	
+	<td><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 70, :omission=>("...")) , project_task_url(:project_id =>  task.project_id, :id => task.id) %></td>	
 	
 	<td><a href="http://<%= request.env['HTTP_HOST'] %>/projects/<%=  task.project_id %>/tasks/<%= task.id %>#read">Comments(<%= task.comments.is_active.length %>)</a></td>
 	

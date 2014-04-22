@@ -1,7 +1,11 @@
 <div id="content-wrap">
   <div id="main"> 
     <h2>Dashboard - My Tasks</h2>
+  <% if @tasks.length == 0 %>
+	<center>No tasks found.</center>
+  <% else %>
     <%= render :partial => "projects/task_field" %>	
+  <% end %>
   </div>
 
   <div id="sidebar">	

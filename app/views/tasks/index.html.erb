@@ -1,7 +1,11 @@
 <div id="content-wrap">
 <div id="main"> 
   <h2> <%= current_project.name %> - Tasks </h2>
-  <%= render :partial => "tasks/task_field" %>	
+  <% if @tasks.length == 0 %>
+	<center>No tasks found.</center>
+  <% else %>
+  	<%= render :partial => "tasks/task_field" %>	
+  <% end %>
 </div>
 
 <div id="sidebar">
