@@ -24,4 +24,12 @@ class Task < ActiveRecord::Base
       find(:all, :order => "due_date DESC")
     end
   end
+  
+  def self.task_stat(task_stat,start_date,end_date)
+    if task_stat
+      find(:all, :order => "due_date DESC", :joins => :task_status, :conditions => ['task_statuses.name LIKE ? AND due_date BETWEEN ? AND ?', "%#{task_stat}%", "#{start_date.to_date}", "#{end_date.to_date}"])
+    else
+      find(:all, :order => "due_date DESC")
+    end
+  end
 end
