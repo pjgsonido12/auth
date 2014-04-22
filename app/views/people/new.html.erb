@@ -1,13 +1,11 @@
-<%= render :partial => "layouts/mainlinks" %>
-
 <div id="content-wrap">
-<div id="main"> <a name="TemplateInfo"></a>
-<h1>Add Person Information</h1>
+<div id="main">
 
 <%= form_for @person,:html => {:class => "person"} do |f| %>
+<legend>Add Person Information</legend>
   <% if @person.errors.any? %>
-    <div class="error_messages">
-	  <h2>Form is valid</h2>
+    <div class="well well-sm">
+	  <h5>Form is valid</h5>
 	  <ul>
 		  <% for message in @person.errors.full_messages %>
 		  <li><%= message%></li>
@@ -17,50 +15,48 @@
   <% end %>
   <p>
   <div class="field">
-	<%= f.label :firstname %>
+	<%= f.label :firstname, :style => "width:150px" %>
 	<%= f.text_field :firstname %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
-	<%= f.label :lastname %>
+  <div class="field">
+	<%= f.label :lastname, :style => "width:150px" %>
 	<%= f.text_field :lastname %>
   </div>
   </p>
+  <p>
   <div class="field">
-	<%= f.label :email %>
+	<%= f.label :email, :style => "width:150px" %>
 	<%= f.text_field :email %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
-	<%= f.label :password %>
+  <div class="field">
+	<%= f.label :password, :style => "width:150px" %>
 	<%= f.password_field :password, :style => "width:275px" %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
-	<%= f.label :password_confirmation %>
+  <div class="field">
+	<%= f.label :password_confirmation, :style => "width:150px" %>
 	<%= f.password_field :password_confirmation %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
+  <div class="field">
 	<%= f.hidden_field :is_active, :value => true %>
   </div>
   </p>
   <p>
-  <div class="field", style="margin-top:-30px;">
-	<%= f.check_box :is_system_admin %>
+  <div class="form-group">
+	<%= f.check_box :is_system_admin, :style => "width:150px" %>
 	<b><%= f.label :is_system_admin %></b>
   </div>
   </p>
   <%#TODO Confirm password%>
   <br />
-   <div class="submit"><%= submit_tag "Create person", :class => "button" %></div>
+   <div class="submit"><%= submit_tag "Create person", :class => "btn btn-primary btn-xs" %><small> or <%= link_to 'cancel', people_url, :class => "red" %></small></div>
 <% end %>
 </div>
-</div>
-
-<div id="footer">
 </div>

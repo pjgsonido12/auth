@@ -1,25 +1,20 @@
 <div id="content-wrap">
 
 <div id="sidebar">
-  <%= button_to "Add Person", new_person_url,:method => :get, :class => "button" %>
+  <%= button_to "Add Person", new_person_url,:method => :get, :class => "btn btn-primary btn-xs" %>
 </div>
 
-<div id="main"> <a name="TemplateInfo"></a>
-<h1>People</h1> 
-    <br />
-    <% for person in @people %>		
-      <div style='display:inline-block;width:150px;height:60px;border-style:dotted;border-width:1px;align:center;'>
-	<br/>
-		<div style="margin-left:10px;">
-	      <%= link_to person.name, person_url(person.id) %>
-	      <small><div id="smallcheck"><%= person.email %> </small></div>
-		</div>
-	  </div>
-    <% end %>
-  
+<div id="main"> 
+<h2>People</h2> 
+	<ul class="list-group">
+	  <% for person in @people %>
+	  <li class="list-group-item">
+	    <span class="badge"><%= person.email %></span>
+	    <%= link_to person.name, person_url(person.id) %>
+		<small><% if person.is_system_admin == true %> (System Administrator)<% end %></small>
+	  </li>
+	  <% end %>
+	</ul>
 </div>
 
-</div>
-
-<div id="footer">
 </div>
