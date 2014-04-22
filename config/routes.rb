@@ -47,9 +47,6 @@ Auth::Application.routes.draw do
       
       collection do
         get :new_task
-        get :my_task
-        get :done_task
-        get :resolved_task
         get :overdue
         get :pending_task
         get :ongoing_task
