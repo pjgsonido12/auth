@@ -23,7 +23,8 @@
 	  <legend>SEARCH:</legend>
 	  <div class="input-group">
 	    <span class="input-group-addon">Task Status</span>
-		<%= text_field_tag :task_stat, params[:task_stat], :class => "form-control", :style => "width:190px;" %>
+		
+		<%= select_tag 'task_stat', options_from_collection_for_select(@task_statuses, :name, :name), :class => "form-control", :style => "width:190px;" %>
 	  </div><br />
 	
 	  <div class="input-group">

@@ -5,7 +5,7 @@
 		<th>Comment</th>
 		<th>Status</th>
 		<th>Owner</th>
-	    <th>Due Date</th>
+	    <th>Date</th>
 	  </tr>
 	</thead>
 <% @grouped_tasks.each do |project, tasks| %>
@@ -37,7 +37,13 @@
 	
 	<td><%= task.task_status.name %></td>
 	<td><% if task.task_status.name == "New" %>N/A<% elsif current_user.id == task.assigned_to %><b>You</b><% else %><%= task.assigned_person.nickname %><% end %></td>
-	<td><%= task.due_date.strftime("%d %B %Y") %></td>
+	<td><% if task.task_status.name == "Resolved" %>
+		  <%= task.date_resolved.strftime("%d %B %Y") %>
+		<% elsif task.task_status.name == "Closed" %>
+		  <%= task.date_completed.strftime("%d %B %Y") %>
+		<% else %>
+		  <%= task.due_date.strftime("%d %B %Y") %></td>
+		<% end %>
     </tr>
   </tbody>		
 	<% end %>

@@ -6,15 +6,30 @@
   </div>
 	
   <div id="main"> 
-  <h2> Projects </h2> 
-	<ul class="list-group">
-	  <% for project in @projects %>
-	  <li class="list-group-item">
-	    <span class="badge"><%= project.tasks.is_active.length %></span>
-	    <%= link_to project.name, project_tasks_url(project) %>
-	  </li>
-	  <% end %>
-	</ul>
+  <h2> Projects </h2> 	
+	<table class="table table-striped table-hover ">
+		<thead>
+		  <tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Total Tasks</th>
+
+		  </tr>
+		</thead>
+	<% for project in @projects %>
+
+	  <tbody>
+	    <tr class="active">
+	 
+		<td><%= link_to project.name, project_tasks_url(project) %></td>	
+		<td><%= truncate(project.description, :length => 120, :omission=>("...")) %></td>
+		<td><span class="badge"><%= project.tasks.is_active.length %></span></td>
+	    </tr>
+	  </tbody>		
+		<% end %>
+	
+
+	</table>
   </div>
 </div>
 
