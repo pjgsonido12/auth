@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
     @tasks = Task.eager_load(:project).where("projects.is_active = ? AND tasks.is_active = ?", true, true).task_stat(params[:task_stat],params[:start_date],params[:end_date])
     @grouped_tasks = @tasks.group_by &:project
     @projects = current_user.projects.is_active
+    @task_statuses = TaskStatus.all
     
     respond_to do |format|
       format.html
