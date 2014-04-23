@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Project Name</th>
+    <th>Status</th>
+    <th>Owner</th>
+	<th>Due Date</th>
+  </tr>
+  <% @tasks.each do |task| %>
+  <tr>
+    <td><%= "#" + task.task_number.to_s + " - " + task.title %></td>
+    <td><%= task.project.name %></td>
+    <td><%= task.task_status.name %></td>
+    <td><%= task.assigned_person.nickname %></td>
+	<td><%= task.due_date %></td>
+  </tr>
+  <% end %>
+</table>
