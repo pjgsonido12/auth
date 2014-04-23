@@ -27,7 +27,13 @@ class Task < ActiveRecord::Base
   
   def self.task_stat(task_stat,start_date,end_date)
     if task_stat
-      find(:all, :order => "due_date DESC", :joins => :task_status, :conditions => ['task_statuses.name LIKE ? AND due_date BETWEEN ? AND ?', "%#{task_stat}%", "#{start_date.to_date}", "#{end_date.to_date}"])
+      if task_stat == "Closed"
+        find(:all, :order => "due_date DESC", :joins => :task_status, :conditions => ['task_statuses.name = ? AND date_completed BETWEEN ? AND ?', "#{task_stat}", "#{start_date.to_date}", "#{end_date.to_date}"])
+      elsif task_stat == "Resolved"
+        find(:all, :order => "due_date DESC", :joins => :task_status, :conditions => ['task_statuses.name = ? AND date_resolved BETWEEN ? AND ?', "#{task_stat}", "#{start_date.to_date}", "#{end_date.to_date}"])
+      else
+        find(:all, :order => "due_date DESC", :joins => :task_status, :conditions => ['task_statuses.name = ? AND due_date BETWEEN ? AND ?', "#{task_stat}", "#{start_date.to_date}", "#{end_date.to_date}"])
+      end
     else
       find(:all, :order => "due_date DESC")
     end
