@@ -11,7 +11,7 @@ Auth::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   match 'dashboard' => 'projects#dashboard', :as => 'dashboard'
   match 'overdue' => 'projects#overdue', :as => 'overdue'
-  match 'report' => 'projects#report', :as => 'report'
+  match 'reports' => 'projects#reports', :as => 'reports'
   match '/permissions/update_role' => 'permissions#update_role', :as => 'update_role', :via => [:put]
   match "/", :to => "application#index", :as => :application
   post '/email_processor' => 'griddler/emails#create'
@@ -41,7 +41,7 @@ Auth::Application.routes.draw do
       
       collection do
         get :overdue
-        get :report
+        get :reports
       end  
       resources :comments
     end
