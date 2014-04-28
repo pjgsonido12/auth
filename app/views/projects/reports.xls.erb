@@ -4,7 +4,8 @@
     <th>Project Name</th>
     <th>Status</th>
     <th>Owner</th>
-	<th>Due Date</th>
+	<th>Due/ Resolved Date</th>
+	<th>Error Count</th>
   </tr>
   <% @tasks.each do |task| %>
   <tr>
@@ -12,7 +13,12 @@
     <td><%= task.project.name %></td>
     <td><%= task.task_status.name %></td>
     <td><%= task.assigned_person.nickname %></td>
-	<td><%= task.due_date %></td>
+	<% if task.task_status.name == "Resolved" || task.task_status.name == "Closed" %>
+		<td><%= task.date_resolved %></td>
+	<% else %>
+		<td><%= task.due_date %></td>
+	<% end %>
+	<td><%= task.reassigned_count %></td>
   </tr>
   <% end %>
 </table>
