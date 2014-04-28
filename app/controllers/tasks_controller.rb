@@ -121,8 +121,10 @@ class TasksController < ApplicationController
               #UserMailer.updated_task(person, @project, @task).deliver
             end
             flash[:notice] = "You have successfully updated task information."
-            if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed' || @task.task_status.name == 'Re-Open'
+            if @task.task_status.name == 'Resolved'
               format.html { redirect_to dashboard_url }
+            elsif @task.task_status.name == 'Closed' || @task.task_status.name == 'Re-Open'
+              format.html { redirect_to project_tasks_url(current_project) }
             else
               format.html { redirect_to project_task_url }
             end
