@@ -44,24 +44,32 @@ $j(document).ready(function() {
 	      <td><%= @task.task_status.name %> <% if @task.is_priority == 1 %>(Priority)<%end%></td>
 	      <td><strong>Due date:</strong></td>
 	      <td><%= @task.due_date.strftime("%d %B %Y") %></td>
+		  <td><strong>Re-Assigned Count:</strong></td>
+		  <td><span class="badge"><% if @task.reassigned_count.nil? %> 0 <% else %> <%= @task.reassigned_count %> <% end %></span></td>
 	    </tr>
 	    <tr>
 	      <td><strong>Created by:</strong></td>
 	      <td><%= @task.created_person.name %></td>
 	      <td><strong>Created at:</strong></td>
 	      <td><%= @task.created_at.strftime("%d %B %Y") %></td>
+		  <td><strong>Re-Open Count:</strong></td>
+		  <td><span class="badge"><% if @task.reopen_count.nil? %> 0 <% else %> <%= @task.reopen_count %> <% end %></span></td>
 	    </tr>
 	    <tr>
 	      <td><strong>Assigned to:</strong></td>
 	      <td><% if @task.task_status.name == "New" %>N/A<% else %><%= @task.assigned_person.name %><% end %></td>
 	      <td><strong>Date Resolved:</strong></td>
 	      <td><% if @task.task_status.name == 'Resolved' || @task.task_status.name == 'Closed'%><%= @task.date_resolved.strftime("%d %B %Y") %><% else %> N/A <% end %></td>
+		  <td></td>
+		  <td></td>
 	    </tr>
 	    <tr>
 	      <td></td>
 	      <td></td>
 	      <td><strong>Date Completed:</strong></td>
 	      <td><% if @task.task_status.name == 'Closed'%><%= @task.date_completed.strftime("%d %B %Y") %><% else %> N/A <% end %></td>
+		  <td></td>
+		  <td></td>
 	    </tr>
 
 	  </tbody>

@@ -1,24 +1,41 @@
 <table>
+	<thead>
+	  <tr>
+		<th></th>
+	    <th>Title</th>	   
+	    <th>Status</th>
+	    <th>Owner</th>
+		<th>Due/ Resolved Date</th>
+		<th>Error Count</th>
+	  </tr>
+	</thead>
+<% @grouped_tasks.each do |project, tasks| %>
+<thead>
   <tr>
-    <th>Title</th>
-    <th>Project Name</th>
-    <th>Status</th>
-    <th>Owner</th>
-	<th>Due/ Resolved Date</th>
-	<th>Error Count</th>
+	<th><%= project.name %></th>
+	<th></th>
+	<th></th>
+	<th></th>
+    <th></th>
+	<th></th>
   </tr>
-  <% @tasks.each do |task| %>
-  <tr>
-    <td><%= "#" + task.task_number.to_s + " - " + task.title %></td>
-    <td><%= task.project.name %></td>
-    <td><%= task.task_status.name %></td>
-    <td><%= task.assigned_person.nickname %></td>
-	<% if task.task_status.name == "Resolved" || task.task_status.name == "Closed" %>
-		<td><%= task.date_resolved %></td>
-	<% else %>
-		<td><%= task.due_date %></td>
+</thead>
+	<% tasks.each do |task| %>
+  <tbody>
+    <tr>
+		<td></td>
+	    <td><%= "#" + task.task_number.to_s + " - " + task.title %></td>	    
+	    <td><%= task.task_status.name %></td>
+	    <td><%= task.assigned_person.nickname %></td>
+		<% if task.task_status.name == "Resolved" || task.task_status.name == "Closed" %>
+			<td><%= task.date_resolved.strftime('%F') %></td>
+		<% else %>
+			<td><%= task.due_date %></td>
+		<% end %>
+		<td><%= task.reassigned_count %></td>
+    </tr>
+  </tbody>		
 	<% end %>
-	<td><%= task.reassigned_count %></td>
-  </tr>
-  <% end %>
+<% end %>
+
 </table>
