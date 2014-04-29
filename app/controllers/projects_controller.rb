@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.csv { send_data @tasks.to_csv }
+      format.csv { send_data @grouped_tasks.to_csv }
       format.xls   { headers["Content-Disposition"] = "attachment; filename=\"#{Date.today}_reports.xls\"" } 
     end
   end
