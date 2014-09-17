@@ -1,0 +1,88 @@
+<i>
+<p>Create a program that can display the fibonacci series of two given numbers up to equal or less than 100.</p>
+
+<% num1 = 1 %>
+<% num2 = 2 %>
+<% i = 0 %>
+<%= "Number one : #{num1}"%><br />
+<%= "Number two : #{num2}"%><br />
+
+<%= num1 %>
+<%= num2 %>
+
+<% for i in i..100 %>
+	<% if i < 100 %>
+   		<% num1 += num2 %>
+		<%= num1 if num1 <= 100 %>
+		<% i = num1 %>
+		<% num2 += num1 %>
+		<%= num2 if num2 <= 100 %>
+		<% i = num2 %>
+	<% end %>
+	<% i += 1 %>
+<% end %>
+</i>
+
+<b>
+<br /><br />
+<p>2. Create a program that can determine a number if it's a prime number or not.</p>
+
+<% n = 30 %>
+<% i = 0 %>
+
+<%= "Enter a number: #{n}" %>
+
+<% i = 2 %>
+<% for i in i..n %>
+	<% if i<= (n.to_f / 2) %>		
+		<% if(n%i==0) %>
+			<% flag = 1%>
+				<% if flag == 1%>
+					<% @flag2 = flag %>
+				<% end %>
+		<% end %>
+	<% end %>
+	<% i += 1 %>	
+<% end %>
+
+<br />
+<% if @flag2 == 1 %>
+	<%= "#{n} is not a prime number."%>
+<% else %>
+	<%= "#{n} is a prime number."%>
+<% end %>
+</b>
+
+<i>
+<br /><br />
+<p>3. Create a program that can calculate the number of words and number of letters being used in a sentence.</p>
+
+<%= word = "Hello World!"%>
+<% calc_words = word.scan(/\S+/).size %>
+<br>
+<%= "Number of words: #{calc_words}"%>
+<br>
+<% calc_letters = word.count "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" %>
+<%= "Number of letters: #{calc_letters}"%>
+</i>
+
+<b>
+<br /><br />
+<p>4. Create a program that can determine your age and how many months and days left before your next birthday.</p>
+
+<%= dob = "1989-12-12".to_date %>
+<% now = Date.today %>
+<% age = now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)%>
+<% next_dob = "#{Date.today.year + 1}-#{dob.month}-#{dob.day}".to_date %>
+<br />
+<%= "You're #{age} years old now."%>
+<br />
+<%= next_dob %>
+
+</b>
+
+<i>
+<br /><br />
+<p>5. All sponsored children that sponsorship started from Oct 2013 to present.</p>
+
+</i>
