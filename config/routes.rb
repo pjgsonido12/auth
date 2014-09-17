@@ -16,6 +16,9 @@ Auth::Application.routes.draw do
   match "/", :to => "application#index", :as => :application
   post '/email_processor' => 'griddler/emails#create'
   
+  match 'exam' => 'sessions#exam', :as => 'exam'
+  match 'mansionitas' => 'sessions#mansionitas', :as => 'mansionitas'
+  
   root :to => "sessions#new"
     
   resources :people do
