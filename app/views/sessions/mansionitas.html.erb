@@ -11,30 +11,27 @@
 			<th>Jade</th>
 		    <th>Jen</th>
 			<th>Krisel</th>
+			<th></th>
 		  </tr>
 		</thead>
 
 	  <tbody>
-	  <tr class="active">
-		<td>08/26/2014</td>	
-		<td>x</td>
-		<td>x</td>
-		<td>8,730</td>
-		<td>x</td>
-		<td>x</td>
-	  </tr>
-	
-	  <tr class="info">
-		<td>09/17/2014</td>	
-		<td>1,700</td>
-		<td>x</td>
-		<td>x</td>
-		<td>1,000</td>
-		<td>x</td>
-	  </tr>
+	  
+		<% @tours.each do |tour| %>
+		<tr class="info">
+		  <td><%= tour.paid %></td>	
+		  <td><%= tour.a %></td>
+		  <td><%= tour.b %></td>
+		  <td><%= tour.c %></td>
+	   	  <td><%= tour.d %></td>
+		  <td><%= tour.e %></td>
+		  <td></td>
+		 </tr>
+		<% end %>	 
 	
 	  <tr class="active">
 		<td></td>	
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -44,23 +41,24 @@
 	
 	  <tr class="warning">
 		<td>Total:</td>	
-		<td>1,700</td>
-		<td>0</td>
-		<td>8,7300</td>
-		<td>1,000</td>
-		<td>0</td>
+		<td><%= sum_a = @tours.sum(&:a) %></td>
+		<td><%= sum_b = @tours.sum(&:b) %></td>
+		<td><%= sum_c = @tours.sum(&:c) %></td>
+		<td><%= sum_d = @tours.sum(&:d) %></td>
+		<td><%= sum_e = @tours.sum(&:e) %></td>
+		<td></td>
 	  </tr>
 	
 	  <tr class="success">
 		<td>Budget 10K - Total</td>	
-		<td>8,300</td>
-		<td>10,000</td>
-		<td>1,270</td>
-		<td>9,000</td>
-		<td>10,000</td>
+		<td><%= 10000 -  sum_a %></td>
+		<td><%= 10000 -  sum_b %></td>
+		<td><%= 10000 -  sum_c %></td>
+		<td><%= 10000 -  sum_d %></td>
+		<td><%= 10000 -  sum_e %></td>
+		<td></td>
 	  </tr>
-	
-	
+		
 	  </tbody>		
 	</table>
 
@@ -83,7 +81,6 @@
 			Travel Agency : Travelonline.ph
 	  </div>
 	</div>
-
   </div>
 
 </div>
