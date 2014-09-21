@@ -18,8 +18,6 @@ Auth::Application.routes.draw do
   
   match 'exam' => 'sessions#exam', :as => 'exam'
   match 'mansionitas' => 'sessions#mansionitas', :as => 'mansionitas'
-  match 'add_payment' => 'sessions#add_payment', :as => 'add_payment'
-  match 'payment' => 'sessions#payment', :as => 'payment'
   
   root :to => "sessions#new"
     
