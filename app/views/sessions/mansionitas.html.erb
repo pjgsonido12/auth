@@ -19,12 +19,12 @@
 	  
 		<% @tours.each do |tour| %>
 		<tr class="info">
-		  <td><%= tour.paid %></td>	
-		  <td><%= tour.a %></td>
-		  <td><%= tour.b %></td>
-		  <td><%= tour.c %></td>
-	   	  <td><%= tour.d %></td>
-		  <td><%= tour.e %></td>
+		  <td><%= tour.repository_link %></td>	
+		  <td><%= tour.error_count %></td>
+		  <td><%= tour.reassigned_count %></td>
+		  <td><%= tour.reopen_count %></td>
+	   	  <td><%= tour.updated_by %></td>
+		  <td><%= tour.created_by %></td>
 		  <td></td>
 		 </tr>
 		<% end %>	 
@@ -41,11 +41,11 @@
 	
 	  <tr class="warning">
 		<td>Total:</td>	
-		<td><%= sum_a = @tours.sum(&:a) %></td>
-		<td><%= sum_b = @tours.sum(&:b) %></td>
-		<td><%= sum_c = @tours.sum(&:c) %></td>
-		<td><%= sum_d = @tours.sum(&:d) %></td>
-		<td><%= sum_e = @tours.sum(&:e) %></td>
+		<td><%= sum_a = @tours.sum(&:error_count) %></td>
+		<td><%= sum_b = @tours.sum(&:reassigned_count) %></td>
+		<td><%= sum_c = @tours.sum(&:reopen_count) %></td>
+		<td><%= sum_d = @tours.sum(&:updated_by) %></td>
+		<td><%= sum_e = @tours.sum(&:created_by) %></td>
 		<td></td>
 	  </tr>
 	

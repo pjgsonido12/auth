@@ -77,7 +77,38 @@
 	<%= f.text_field :repository_link %>
   </div>
   </p>
-
+<%if current_project.name == "NA" %>
+  <p>
+  <div class="field">
+	<%= f.label :error_count %>
+	<%= f.text_field :error_count  %>
+  </div>
+  </p>
+  <p>
+  <div class="field">
+	<%= f.label :reassigned_count  %>
+	<%= f.text_field :reassigned_count  %>
+  </div>
+  </p>
+  <p>
+  <div class="field">
+	<%= f.label :reopen_count %>
+	<%= f.text_field :reopen_count %>
+  </div>
+  </p>
+  <p>
+  <div class="field">
+	<%= f.label :updated_by %>
+	<%= f.text_field :updated_by %>
+  </div>
+  </p>
+  <p>
+  <div class="field">
+	<%= f.label :created_by %>
+	<%= f.text_field :created_by %>
+  </div>
+  </p>
+<% end %>
 	<%= f.hidden_field :is_active, :value => true %>
 	<%= f.hidden_field :task_status_id, :value => 1 %>
 	<%= f.hidden_field :assigned_to, :value => current_user.id %>

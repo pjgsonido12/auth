@@ -19,23 +19,9 @@ class SessionsController < ApplicationController
   end
   
   def mansionitas
-    @tour = Tour.new
-    @tours = Tour.all
+    @tours = Task.where(:project_id => 29) #NA
   end
-  
-  def payment
-    @tour = Tour.new
-  end
-  
-  def add_payment
-    @tour = Tour.new(params[:tour])
-    if @tour.save
-      flash[:notice] = "You have a payment."
-      redirect_to mansionitas_url
-    else
-      render "mansionitas"
-    end
-  end
+
 end
 
 

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :authenticate_project!
+  before_filter :authenticate_project!, :except => [:new, :create]
   
     def index
       @tasks = current_project.tasks.is_active.search(params[:search])
