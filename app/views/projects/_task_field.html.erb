@@ -38,7 +38,7 @@
 	<td><%= task.task_status.name %></td>
 	<td><% if task.task_status.name == "New" %>N/A<% elsif current_user.id == task.assigned_to %><b>You</b><% else %><%= task.assigned_person.nickname %><% end %></td>
 	<td><% if task.task_status.name == "Resolved" || task.task_status.name == "Closed" %>
-		  <%= task.date_resolved.strftime("%d %B %Y") %>
+		  <%= task.due_date.strftime("%d %B %Y") %>
 		<% else %>
 		  <%= task.due_date.strftime("%d %B %Y") %></td>
 		<% end %>
