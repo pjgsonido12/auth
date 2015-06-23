@@ -17,7 +17,6 @@ Auth::Application.routes.draw do
   post '/email_processor' => 'griddler/emails#create'
   
   match 'exam' => 'sessions#exam', :as => 'exam'
-  match 'mansionitas' => 'sessions#mansionitas', :as => 'mansionitas'
   
   root :to => "sessions#new"
     
@@ -30,6 +29,9 @@ Auth::Application.routes.draw do
   resources :sessions   
   
   resources :projects do
+    collection do
+      put :moved_statuses
+    end
     member do
       get :overview
       put :cancel
