@@ -23,6 +23,27 @@ class ProjectsController < ApplicationController
     end
   end
   
+  def moved_statuses
+      respond_to do |format|
+         @task_name = TaskStatus.find_by_name(params[:task_stat])
+         if params[:tasks]
+           @task = Task.where(:id => params[:tasks])
+           if @task_name = "Resolved"
+             @task.update_all({:task_status_id => params[:task_stat]}, {:date_resolved => Date.today})   
+           elsif @task_name = "Closed"
+             @task.update_all({:task_status_id => params[:task_stat]}, {:date_resolved => Date.today}, {:date_completed => Date.today})   
+           else
+             @task.update_all({:task_status_id => params[:task_stat]})   
+           end
+           flash[:notice] = "You have successfully moved tasks to #{params[:tasks]}"
+           format.html { redirect_to reports_url }
+         else
+           flash[:error] = "Please select task to move."
+           format.html { redirect_to reports_url }
+         end
+     end
+  end
+  
   def dashboard  
     if admin_role && current_user.permissions.length == 0
       @tasks = Task.eager_load(:project).where("projects.is_active = ? AND tasks.is_active = ? AND tasks.task_status_id IN (?)", true, true, [2,4,5,6,7]).search(params[:search])    

@@ -1,7 +1,8 @@
+<%= form_tag(moved_statuses_projects_url, :method => :put) do %>
 <table class="table table-striped table-hover ">
 	<thead>
 	  <tr>
-		<th></th>
+		<th><%= select_tag 'task_stat', options_from_collection_for_select(@task_statuses, :id, :name) %><div class="submit" style="margin-left:120px;margin-top:-20px;"><%= submit_tag "Moved", :name => nil, :class => "btn btn-primary btn-xs" %></th>
 		<th>Comment</th>
 		<th>Status</th>
 		<th>Owner</th>
@@ -31,7 +32,7 @@
   <% else %>
     <tr class="active">
   <% end %>
-	<td><%= link_to "#" + task.task_number.to_s + " - " + truncate(task.title, :length => 70, :omission=>("...")) , project_task_url(:project_id =>  task.project_id, :id => task.id) %></td>	
+	<td><%= check_box_tag("tasks[]",task.id,false,{ :class => "tasks" }) %><%= link_to " #" + task.task_number.to_s + " - " + truncate(task.title, :length => 70, :omission=>("...")) , project_task_url(:project_id =>  task.project_id, :id => task.id) %></td>	
 	
 	<td><a href="http://<%= request.env['HTTP_HOST'] %>/projects/<%=  task.project_id %>/tasks/<%= task.id %>#read">Comments(<%= task.comments.is_active.length %>)</a></td>
 	
@@ -48,3 +49,4 @@
 <% end %>
 
 </table>
+<% end %>
